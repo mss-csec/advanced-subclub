@@ -1,0 +1,125 @@
+---
+liquid: true
+layout: lesson
+category: <Your subclub category>
+lesson: 2
+---
+= Using AsciiDoc
+
+AsciiDoc syntax is also supported.
+Personally, I prefer AsciiDoc for its extensibility and flexibility, but the markup language you choose is your own choice.
+
+== An explanation of the front-matter
+
+The front-matter is the stuff between the two triple-hyphens (``---``) at the top of this file.
+They should always be at the top without any preceding whitespace, never at the bottom, and most definitely not in the middle.
+The front-matter consists of four fields, of the format ``:key: value``:
+
+. The _liquid_ field, which tells ``jekyll-asciidoc`` to render Liquid.
+    **Never, ever, EVER change this.
+    If you do, a puppy dies and you lose the benefits of Liquid templating.**
+
+. A _layout_ field, that states how this document will be rendered.
+    It should be ``lesson`` and not anything else.
+
+. A _category_ field, which states the subclub that this lesson belongs to.
+    See the instructions in the README for further details.
+    It should go without saying that this field *must* remain constant across all lessons from the same subclub.
+
+. A _lesson_ field.
+    This states what number this lesson is.
+    So if the field is set to 1, this lesson will be treated as the first lesson, if it is set to 2, it will treated as the 2nd, etc.
+
+All four fields are mandatory. If any of them are missing or malformed, the site may not compile and chances are your lesson will not appear.
+
+Note that unlike the Markdown version, there is no explicit title field.
+This is because the title is written right after the front matter --- it's the text just after the single equals sign.
+
+== A review of AsciiDoc syntax
+
+NOTE:
+====
+This is _not_ meant to be a substitute for reading the link:http://asciidoctor.org/docs/[official documentation].
+It is meant as a review of AsciiDoc syntax, assuming you are somewhat familiar with it already.
+There are many subtleties in AsciiDoc that cannot be covered in this review.
+====
+
+== This is a big heading. Use it for sections.
+
+=== This is a smaller heading. Use it for subsections.
+
+==== This is a much smaller heading. Use it for subsubsections.
+
+===== You can use up to
+
+====== six hashes. The more hashes, the less prominent the heading level.
+
+This is a paragraph.
+It is recommended to type in the _one sentence per line_ style.
+You don't have to use it, but it keeps things readable (and looks like poetry to boot).
+
+Paragraphs are delimited by two linebreaks (``\n\n``).
+However, you can force line breaks with a space followed by a plus (`` +``) at the end of a line. +
+You can also *bold*, _italicize_, *_bold and italicize_*, or [line-through]#strikethrough#.
+You can also link:https://www.google.ca[link to stuff],
+image:https://i.imgur.com/U1TnTl0.jpg[add an image],
+and if you need inline code, ``use two backticks``.
+
+* We
+* also
+* have
+* lists.
+** Nest them by increasing the number of list markers.
+
+. Ordered
+. lists
+. are
+.. supported
+... too!
+
+[quote, some random guy on the internet]
+____
+And you can quote people here, with just four underscores!
+____
+
+++++
+{% highlight cpp %}
+#include <stdio.h>
+
+int main() {
+    printf("This is highlighted C++ code\n");
+
+    return 0;
+}
+{% endhighlight %}
+++++
+
+++++
+{% highlight cpp linenos %}
+// This is also C++, but with line numbers.
+{% endhighlight %}
+++++
+
+'''
+
+Three apostrophes form a horizontal rule.
+Use it to delimit parts of a lesson.
+
+[cols="2*"]
+|===
+|Tables  | have support
+|and it's| awesome!
+|===
+
+Did you know that printers used to catch on fire?
+I have proof.footnote:[Citation needed.]
+
+++++
+<details>
+    <summary>And if you ever need raw HTML&hellip;</summary>
+    <p>&#8230;just enclose it in a passthrough block.</p>
+</details>
+++++
+
+For a cheatsheet of AsciiDoc syntax, see the link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference[AsciiDoc Syntax Quick Reference].
+For a complete and extensive reference, see the link:http://asciidoctor.org/docs/user-manual/[Asciidoctor User Manual].
