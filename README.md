@@ -3,6 +3,8 @@
 Here, you'll find a master template to use for your subclub needs.
 Simply follow the instructions below, and you'll be good to go!
 
+Note that these instructions are not yet finalized, and that versions can differ dramatically.
+
 ## Instructions
 
 Whoa, these are some long instructions!
@@ -101,13 +103,16 @@ Now, think of a title for your lesson.
 Just like the name of your subclub, it should be short, specific, memorable, and follow proper English grammar; however, we recommend that it be in sentence case. 
 Think carefully --- _this title is permanent_ --- and write it down somewhere, as you'll need it for the next step.
 
-Next, take the lesson title that you came up with in the last step, and use it to name your folder by hyphenizing all punctuation and making everything lowercase.
-This is similar to how you turned your subclub title into a category name, and in fact, the same rules and restrictions apply: no spaces, only the characters [-a-z0-9].
+Next, take the lesson title that you came up with in the last step, and use it to create a _lesson id_, which is pretty important as we're going to use it for a lot of things.
+For now, however, our main purpose for creating the lesson id is to create a name for the lesson folder.
+
+Making a lesson id is similar to how you turned your subclub title into a category name: hyphenize all punctuation and make everything lowercase.
+As well, the same rules and restrictions apply: no spaces, only the characters [-a-z0-9].
 So if the title you thought of was:
 
 > A history of snooker
 
-, then the proper conversion would be:
+, then the proper lesson id would be:
 
 > a-history-of-snooker
 
@@ -117,7 +122,7 @@ Your next step is to create the actual lesson.
 If you're on a desktop, open Git Bash and copy the folder pertaining to your favourite markup language to a new folder:
 
     cp -r lessons/_using-<either markdown or asciidoc>/ \
-            lessons/<your hyphenized lesson title here>/
+            lessons/<your lesson id here>/
 
 If you're using the GitHub web interface, first copy the raw contents of your preference of `_using-markdown/index.md` or `_using-asciidoc/index.adoc`.
 You can view the raw contents by clicking the "Raw" button above the file preview.
@@ -125,7 +130,7 @@ Do _not_ simply copy the file without click "Raw" first --- that will not give y
 Navigate to the lessons folder, and click "Create new file" at the top right.
 Then, in the "Name your file" field, type
 
-    <your hyphenized lesson title here>/index.md
+    <your lesson id here>/index.md
 
 If you're using AsciiDoc, use `.adoc` as the file extension.
 Paste the copied template into the code editor under "Edit your file".
@@ -177,6 +182,28 @@ Here's a handy table to help you figure out whether your resource is lesson-spec
 As always, use your own judgement with resources.
 For example, if the PPT you're uploading is a very high-level overview of the language you're teaching in, that probably deserves to be a global resource, because it's something that people are likely to reference again and again.
 
+### Setting up a schedule
+
+To set up your subclub's schedule, edit the `index.md` file at the root of your subclub folder.
+You should see in the front matter, the following block:
+
+    schedule:
+      example-lesson: 31 Dec 1969
+
+This is an example schedule for your subclub, featuring a nonexistent lesson with an absurd date.
+
+In general, a valid schedule consists of an entry for each lesson, containing the lesson id and the date that the lesson is scheduled for.
+For example, if you have a weekly series of lessons starting 4 May 2018, your schedule would look something like this:
+
+    schedule:
+      a-history-of-snooker: 4 May 2018
+      playing-with-flippers: 11 May 2018
+      outsmarting-your-opponent: 18 May 2018
+
+Note that the entries are indented two spaces from the beginning of the line, and that the date is of the format `<day> <month name> <year>`.
+Regarding dates, please use either the format shown above (three-letter abbreviations for months OK), or ISO-8601 (aka YYYY-MM-DD, aka https://xkcd.com/1179).
+Also note that, when creating your schedule, be sure to delete the example entry --- you don't want to confuse any prospective readers!
+
 ### Publishing your subclub
 
 Once you feel that your subclub is ready for inclusion into the main site, submit an issue on the main mss-csec.github.io repo. In the title, write
@@ -200,3 +227,5 @@ This is a simple project after all.
 ## Maintainer
 
 Contact @tyxchen for queries, issues, internet hugs and the like.
+
+_Last modified: 2017-07-30_

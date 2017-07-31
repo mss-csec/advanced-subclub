@@ -2,6 +2,8 @@
 title: <Your subclub title>
 layout: landing
 category: <Your subclub category>
+schedule:
+  example-lesson: 31 Dec 1969
 ---
 
 This is your subclub's landing page.
