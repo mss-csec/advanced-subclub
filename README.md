@@ -4,6 +4,7 @@ Here, you'll find a master template to use for your subclub needs.
 Simply follow the instructions below, and you'll be good to go!
 
 Note that these instructions are not yet finalized, and that versions can differ dramatically.
+The latest version is always located at [our GitHub repository](https://github.com/mss-csec/subclub-template).
 
 ## Instructions
 
@@ -214,8 +215,55 @@ and provide the GitHub link to the subclub in the description.
 A member of the Web Ops team will come by, review everything, and add your subclub to the main site.
 Thanks to the magic of Git, you won't have to open any more new issues when you update your content --- just commit, push, and when the site is rebuilt every one in a while, it'll automatically pull in your latest changes.
 
-Congratulations! You finished the instructions.
-Now, if you think you can improve this template, keep on reading.
+Congratulations! You've finished the basic instructions.
+Read on for some more advanced stuff.
+
+### Additional front matter variables
+
+We also support the following variables.
+
+#### The `addons` variable
+
+The addons variable consists of a hash.
+All keys are optional.
+
+    addons:
+      scripts:
+        - [...]
+      styles:
+        - [...]
+
+##### `scripts`
+
+A list of URLS to external scripts.
+These scripts will be injected into the head element and executed in the order listed before the `DOMContentLoaded` page event, but are parsed asyncronously of the page.
+Thus, any inline scripts that depend on these external scripts must be wrapped in an event listener for the `DOMContentLoaded` event, like so:
+
+```javascript
+window.addEventListener('DOMContentLoaded', function (e) {
+  // your script-dependent code here
+});
+```
+
+###### Example
+
+    addons:
+      scripts:
+        - https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.7.0/codemirror.min.js
+        - https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.7.0/mode/haskell/haskell.min.js
+        - https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.15.0/math.min.js
+
+##### `styles`
+
+A list of URLS to external styles.
+
+###### Example
+
+    addons:
+      styles:
+        - https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.7.0/codemirror.min.css
+        - https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.7.0/theme/monokai.min.css
+        - https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css
 
 ## Contributing
 
@@ -228,4 +276,4 @@ This is a simple project after all.
 
 Contact @tyxchen for queries, issues, internet hugs and the like.
 
-_Last modified: 2017-07-30_
+_Last modified: 2017-08-01_
