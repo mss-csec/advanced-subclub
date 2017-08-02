@@ -37,7 +37,7 @@ This is because the title is written right after the front matter --- it's the t
 
 == A review of AsciiDoc syntax
 
-NOTE:
+[NOTE]
 ====
 This is _not_ meant to be a substitute for reading the link:http://asciidoctor.org/docs/[official documentation].
 It is meant as a review of AsciiDoc syntax, assuming you are somewhat familiar with it already.
