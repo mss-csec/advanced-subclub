@@ -3,7 +3,7 @@
 Here, you'll find a master template to use for your subclub needs.
 Simply follow the instructions below, and you'll be good to go!
 
-Note that these instructions are not yet finalized, and that versions can differ dramatically.
+You are currently looking at **v1.0.0** of this template.
 The latest version is always located at [our GitHub repository](https://github.com/mss-csec/subclub-template).
 
 ## Instructions
@@ -306,4 +306,4 @@ This is a simple project after all.
 
 Contact @tyxchen for queries, issues, internet hugs and the like.
 
-_Last modified: 2017-08-01_
+_Last modified: 2017-08-06_
