@@ -154,6 +154,14 @@ If you're not sure how to do that, or don't have a Git GUI client installed, typ
 
 This will update the GitHub repository with your latest changes.
 
+#### Linking to lessons
+
+To link to a lesson, use the following URL format:
+
+    /lessons/<subclub category>/<lesson id>
+
+For example, if you wished to link to the lesson titled "A history of snooker" in the Snooker for Walruses subclub, you would write `/lessons/snooker-for-walruses/a-history-of-snooker` as your URL.
+
 ### Setting up resources
 
 There are two different types of resources:
@@ -182,6 +190,22 @@ Here's a handy table to help you figure out whether your resource is lesson-spec
 
 As always, use your own judgement with resources.
 For example, if the PPT you're uploading is a very high-level overview of the language you're teaching in, that probably deserves to be a global resource, because it's something that people are likely to reference again and again.
+
+#### Linking to resources
+
+To link to a lesson-specific resource in the same lesson folder as the lesson  you are writing, simply use the resource file name as the URL.
+So if your resource is named, `garganook.jpg`, simply write that as your URL.
+
+To link to a lesson-specific resource in a different lesson folder, you'll have to write a relative path of the format
+
+    ../<lesson id>/<resource file name>
+
+Continuing our example, let's say that our artwork of this mythical Garganook is in the lesson with id `my-random-drawings`.
+The appropriate URL would then be `../my-random-drawings/garganook.jpg`.
+
+To link to a global resource, simply use this URL format:
+
+    /resources/<subclub category>/<resource file name>
 
 ### Setting up a schedule
 
