@@ -289,6 +289,12 @@ A list of URLS to external styles.
         - https://cdnjs.cloudflare.com/ajax/libs/codemirror/4.7.0/theme/monokai.min.css
         - https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css
 
+### Real-life examples
+
+Here's some example subclubs to look at:
+
+- [Web Development](https://github.com/mss-csec/web-development-subclub)
+
 ## Contributing
 
 Fork repo, new branch, make changes, pull request.
