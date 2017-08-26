@@ -22,18 +22,18 @@ But figuring out what numbers to crunch and figuring out how to crunch these num
 
 The end goal of this course is to prepare you for the Canadian Computing Competition, Senior Division, next February. We strongly recommend you have a good grip on your programming language of choice; we assume you are well-acquainted with all concepts in the standard ISC3U Grade 11 Introduction to Computer Science course.
 
-In this course, we'll be using C++ for its low-level power. You may if you wish use other, more familiar languages instead; however, if you are not familiar with at least one of the link:++http://www.cemc.uwaterloo.ca/contests/computing/details.html#languages++[CCC-acceptable languages], we strongly recommend you follow with C++, as we will be largely unable to help if you run into a language-specific problem.
+In this course, we'll be using C++ for its low-level power. You may if you wish use other, more familiar languages instead; however, if you are not familiar with at least one of the link:http://www.cemc.uwaterloo.ca/contests/computing/details.html#languages[CCC-acceptable languages], we strongly recommend you follow with C++, as we will be largely unable to help if you run into a language-specific problem.
 
 The beginners' course taught how to program, where you learned how to write code; the advanced course moves up one level of abstraction into how to write algorithms and how to use code to implement them. The material covers the ICS4U course, and dips into first- and second-year university CS courses. Due to the time constraints, this course will move quickly; we recommend that you pre-read lessons before meetings so that it will be easier when you're learning in the classroom.
 
 ### Useful Resources
 
- - C++ References
- - - link:http://www.cplusplus.com/[cplusplus.com]
- - - link:en.cppreference.com/w/[cppreference.com]
- - link:https://stackoverflow.com/[StackOverflow], a Q&A forum useful for debugging syntax errors
- - The CEMC's link:http://cemc.uwaterloo.ca/contests/computing.html[Canadian Computing Competition website]
- - The link:wcipeg.com[Woburn Collegiate Institute's Programming Enrichment Group's Online Judge], where you can practice on previous problems
+ * C++ References
+ ** link:http://www.cplusplus.com/[cplusplus.com]
+ ** link:en.cppreference.com/w/[cppreference.com]
+ * link:https://stackoverflow.com/[StackOverflow], a Q&A forum useful for debugging syntax errors
+ * The CEMC's link:http://cemc.uwaterloo.ca/contests/computing.html[Canadian Computing Competition website]
+ * The link:wcipeg.com[Woburn Collegiate Institute's Programming Enrichment Group's Online Judge], where you can practice on previous problems
 
 ### Help! My code doesn't work!
 
