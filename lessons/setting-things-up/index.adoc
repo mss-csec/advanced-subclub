@@ -9,9 +9,9 @@ lesson: 1
 There are a few things which we will be using often in this course; it is imperative that you have had them set up when we use them.
 
 Please ensure that the following are ready to use by the first lesson:
-- An IDE or compiler for your language of choice
-- A link:wcipeg.com[wcipeg] account, for challenging practice
-- A link:https://www.hackerrank.com/[HackerRank] account, for practice for every lesson
+* An IDE or compiler for your language of choice
+* A link:wcipeg.com[wcipeg] account, for challenging practice
+* A link:https://www.hackerrank.com/[HackerRank] account, for practice for every lesson
 
 The latter two points are rather trivial; the rest of this "lesson" regards the setup of an IDE for C++.
 
@@ -38,7 +38,7 @@ Make sure that you are downloading a `16.01mingw` version, as those include the 
 
 If you are running Code::Blocks on Mac OS-X, you may be urged to download a command line. Allow Code::Blocks to install the command line.
 
-Test that Code::Blocks is working by creating a new C++ file selecting _File \-> New \-> Empty file_, or with [<kbd>Ctrl</kbd>]-[<kbd>Shift</kbd>]-[<kbd>N</kbd>]. Save this file with _File \-> Save_ or with [<kbd>Ctrl</kbd>]-[<kbd>S</kbd>] with the file extension `.cpp`.
+Test that Code::Blocks is working by creating a new C++ file selecting _File \-> New \-> Empty file_, or with [<kbd>Ctrl+Shift+N</kbd>]. Save this file with _File \-> Save_ or with [<kbd>Ctrl+S</kbd>] with the file extension `.cpp`.
 
 IMPORTANT: Files will normally save as a C Source file with the .c extension. However, we are working in C++; your file *must* use the .cpp extension, or it will not be compiled as a C++ Source!
 
