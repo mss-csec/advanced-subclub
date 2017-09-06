@@ -9,6 +9,7 @@ lesson: 1
 There are a few things which we will be using often in this course; it is imperative that you have had them set up when we use them.
 
 Please ensure that the following are ready to use by the first lesson:
+
 * An IDE or compiler for your language of choice
 * A link:wcipeg.com[wcipeg] account, for challenging practice
 * A link:https://www.hackerrank.com/[HackerRank] account, for practice for every lesson
