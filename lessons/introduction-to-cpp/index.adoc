@@ -17,8 +17,6 @@ If you are unable to solve problems such as {{give example here}}, then it would
 
 The purpose of this lesson is to familiarize you with (or to provide you a review of) C++ syntax, which is this course's language of choice.
 
-'''
-
 == Comments
 
 In C++, single-line comments are denoted with ``//``.
@@ -37,7 +35,7 @@ int n; // This is also a single-line comment,
 
 Sometimes, very long or very short explanations may be warranted.
 The beginning of a comment block is denoted by ``/*`` and the ending by ``*/``.
-This allows us to put a comment in the middle of a line \-- or across multiple lines without needing to double-slash every line.
+This allows us to put a comment in the middle of a line -- or across multiple lines without needing to double-slash every line.
 
 [source,cpp]
 ----
@@ -99,8 +97,9 @@ If you've never used C++ before, this line looks pathological.
 Did I not just say that ``std::cout`` is a function?
 What's with the double angle brackets?
 
-This is a very interesting peculiarity with C++; for some reason \-- perhaps to appear more... beginner friendly? \-- the ``<iostream>`` library really likes treating everything visually as a stream.
+This is a very interesting peculiarity with C++; for some reason -- perhaps to appear more... beginner friendly? -- the ``<iostream>`` library really likes treating everything visually as a stream.
 The double angle brackets are like the direction of the stream: in this case, towards ``std::cout`` (which stands for, by the way, **C**onsole **Out**put).
 This becomes more clear when you begin to look at reading from the console.
-And, uhh, no... ``std::cout`` is _not_ actually a function; it's an object.
 
+And, uhh, no... ``std::cout`` is _not_ actually a function; it's an object.
+We'll just stop here.
