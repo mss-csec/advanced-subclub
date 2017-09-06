@@ -65,7 +65,7 @@ The C++ I/O library is in the ``<iostream>`` header and resides in the ``std`` (
 
 === Output Using ``std::cout``
 
-To write (or print), we use the ``std::cout`` function with the ``<<`` operator:
+To write (or print), we use the ``std::cout`` "function"with the ``<<`` operator:
 
 ++++
 {% highlight cpp linenos %}
@@ -101,5 +101,63 @@ This is a very interesting peculiarity with C++; for some reason -- perhaps to a
 The double angle brackets are like the direction of the stream: in this case, towards ``std::cout`` (which stands for, by the way, **C**onsole **Out**put).
 This becomes more clear when you begin to look at reading from the console.
 
+[NOTE]
+====
+``std::endl`` is not just a newline character.
+To simply print a newline character, you can use ``'\n'``; ``std::endl`` generally prints both the newline character and the carriage return character (``'\r'``), and then flushes the stream.
+
+When printing to the console, what is intended to print is first stored in a buffer.
+It doesn't print until it decides it needs to; on a typical console line, that's during a screen refresh (sixty times a second).
+However, if you're interacting with another program (like in practice problems), that's rather slow; instead, you can *flush* it to have it printed immediately.
+``std::endl`` provides this functionality; you can also use ``std::flush`` or a program termination to print your output immediately.
+====
+
 And, uhh, no... ``std::cout`` is _not_ actually a function; it's an object.
 We'll just stop here.
+
+### Input Using ``std::cin``
+
+To read (or scan), we use the ``std::cin`` "function" and the operator ``>>``.
+
+++++
+{% highlight cpp linenos %}
+#include <stdio.h>   //for std::cin and std::cout
+
+using namespace std; //for dropping the std::
+
+int main(int argc, const char* argv[])
+{
+    int n;             //declare an integer n
+    cin >> n;          //read an integer from the console, putting it in n
+    cout << n << endl; //spit n back out, then a newline and flush the stream.
+    return 0;
+}
+{% endhighlight}
+++++
+
+Like with the pathological syntax of ``std::cout``, the syntax of ``std::cin`` resembles that of a flow equation: something goes _from_ ``std::cin`` _to_ ``n``.
+
+== Variables and Types
+
+In C++, variables are declared by writing ``[type] [variable name]``.
+You can initialize them at declaration with ``[type] [variable name] = [value]``.
+
+[NOTE]
+====
+Many languages offer automatic null-initialization; for example, an ``int`` would automatically start as 0.
+C is a low-level language (it's closer to the hardware), and providing automatic null-initialization would be wasteful, as a variable can be declared and then subsequently initialized.
+With null-initialization, there would be two writes: one with 0 and the next with the desired value; without, just one.
+
+Since C++ doesn't provide null initialization, you must remember to initialize variables you intend to use.
+Variable declaration only allocates memory; initially, its values would simply be whatever was there before.
+For your purposes, it's nothing but garbage.
+====
+
+++++
+{% highlight cpp %}
+    int n;                  //declare an int called n
+    char c = 'A';           //declare a character called c and assign it the value of 'A'
+    double d = 0.0, e;      //declare a double called d and assign it 0.0; then declare a double called e
+{% endhighlight %}
+++++
+
