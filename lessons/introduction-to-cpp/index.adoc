@@ -86,6 +86,14 @@ In line 8, we print ``Hello World!`` with STL's ``std::cout``.
 So that the code would execute, we encompassed the code inside the ``main`` function (line 5).
 So that our compiler knows what ``cout`` and ``endl`` are, we first included ``<iostream>`` (line 1) and then told the compiler to allow us to freely use things from the ``std`` namespace (line 3).
 
+[NOTE]
+====
+It's generally considered bad form to use ``using namespace std;``, as it locks up many symbols (variable, class, function names) from use.
+As such, these lessons (except for this section) will not use ``using namespace std;``, instead opting to write the full symbols.
+
+You may choose whether or not to use this line; it really doesn't matter in your own code.
+====
+
 All of that is to say that, for now, we simply need those three lines to run any code.
 The real meat of the matter here is line 8:
 ++++
@@ -154,10 +162,30 @@ For your purposes, it's nothing but garbage.
 ====
 
 ++++
-{% highlight cpp %}
+{% highlight cpp linenos %}
+#include <iostream>
+
+int main(int argc, const char* argv[])
+{
     int n;                  //declare an int called n
     char c = 'A';           //declare a character called c and assign it the value of 'A'
     double d = 0.0, e;      //declare a double called d and assign it 0.0; then declare a double called e
+
+    //spit out the values of the declared variables
+    std::cout << n << std::endl << c << std::endl << d << std::endl << e << std::endl;
+    return 0;
+}
 {% endhighlight %}
 ++++
 
+If you run this code, you should see an output like the following:
+++++
+{% highlight linenos %}
+50786312
+A
+0.00000
+-2.46962e-185
+{% endhighlight %}
+++++
+
+You may notice that the output differs on lines 1 and 4; that's because the program was outputting garbage that varies from machine to machine, from program to program, and from time to time.
