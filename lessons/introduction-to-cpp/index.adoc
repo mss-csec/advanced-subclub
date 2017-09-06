@@ -17,6 +17,8 @@ If you are unable to solve problems such as {{give example here}}, then it would
 
 The purpose of this lesson is to familiarize you with (or to provide you a review of) C++ syntax, which is this course's language of choice.
 
+'''
+
 == Comments
 
 In C++, single-line comments are denoted with ``//``.
@@ -35,7 +37,7 @@ int n; // This is also a single-line comment,
 
 Sometimes, very long or very short explanations may be warranted.
 The beginning of a comment block is denoted by ``/*`` and the ending by ``*/``.
-This allows us to put a comment in the middle of a line -- or across multiple lines without needing to double-slash every line.
+This allows us to put a comment in the middle of a line \-- or across multiple lines without needing to double-slash every line.
 
 [source,cpp]
 ----
@@ -62,11 +64,13 @@ C++ is a derivative of C, and both languages have their own library for I/O.
 Both methods work; the C++ version is simpler (for now), but we'll introduce the C version later.
 
 The C++ I/O library is in the ``<iostream>`` header and resides in the ``std`` (**St**andar**d** Library) namespace.
+
+=== Output Using ``std::cout``
+
 To write (or print), we use the ``std::cout`` function with the ``<<`` operator:
 
-TODO: add documentation
-[source, cpp, linenums]
-----
+++++
+{% highlight cpp linenos %}
 #include <iostream>  //for std::cout, std::endl
 
 using namespace std; //so we don't have to write the std::
@@ -77,5 +81,26 @@ int main(int argc, const char* argv[])
     cout << "Hello World!" << endl;
     return 0;
 }
-----
+{% endhighlight %}
+++++
+
+In line 8, we print ``Hello World!`` with STL's ``std::cout``.
+So that the code would execute, we encompassed the code inside the ``main`` function (line 5).
+So that our compiler knows what ``cout`` and ``endl`` are, we first included ``<iostream>`` (line 1) and then told the compiler to allow us to freely use things from the ``std`` namespace (line 3).
+
+All of that is to say that, for now, we simply need those three lines to run any code.
+The real meat of the matter here is line 8:
+++++
+{% highlight cpp %}
+    cout << "Hello World!" << endl;
+{% endhighlight %}
+++++
+If you've never used C++ before, this line looks pathological.
+Did I not just say that ``std::cout`` is a function?
+What's with the double angle brackets?
+
+This is a very interesting peculiarity with C++; for some reason \-- perhaps to appear more... beginner friendly? \-- the ``<iostream>`` library really likes treating everything visually as a stream.
+The double angle brackets are like the direction of the stream: in this case, towards ``std::cout`` (which stands for, by the way, **C**onsole **Out**put).
+This becomes more clear when you begin to look at reading from the console.
+And, uhh, no... ``std::cout`` is _not_ actually a function; it's an object.
 
