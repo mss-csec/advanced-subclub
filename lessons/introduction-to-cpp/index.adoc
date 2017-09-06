@@ -1,0 +1,76 @@
+---
+liquid: true
+layout: lesson
+category: advanced
+lesson: 2
+---
+= Introduction to C++
+
+The Advanced Course begins with the assumption that you are familiar and comfortable with programming so that we can advance to more complex, more difficult, more interesting topics.
+
+[IMPORTANT]
+====
+If you are unable to solve problems such as {{give example here}}, then it would probably be wise to take the Beginners' course instead.
+====
+
+The purpose of this lesson is to familiarize you with (or to provide you a review of) C++ syntax, which is this course's language of choice.
+
+== Comments
+
+In C++, single-line comments are denoted with ``//``.
+All text on the line of the double-slash, after the double-slash, is commented and won't be parsed by the compiler.
+Typically, they are coloured green; Code::Blocks will colour them grey by default.
+
+[source,cpp]
+----
+// This is a single-line comment.
+
+int n; // This is also a single-line comment,
+       // but what came before the double-slashes
+       // will still be parsed by the compiler.
+----
+
+Sometimes, very long or very short explanations may be warranted.
+The beginning of a comment block is denoted by ``/*`` and the ending by ``*/``.
+This allows us to put a comment in the middle of a line -- or across multiple lines without needing to double-slash every line.
+
+[source,cpp]
+----
+/* This is the beginning of a comment block.
+ * It's standard convention to put an asterick
+ * in front of all lines contained in a comment
+ * block.
+   But it isn't necessary.
+ * It's also standard convention to not end the
+ * block at the end of a line, but at the beginning
+ * of a new line.
+ */
+
+int /* We're putting this here as an example;
+don't actually do this with simple statements.*/ n;
+----
+
+Comments are used to document code; when we show code to you, you will see many comments explaining exactly what each line does.
+We would also appreciate it if, when you show us code to debug, you also include comments explaining what you intend each line to do.
+
+== Input and Output
+
+C++ is a derivative of C, and both languages have their own library for I/O.
+Both methods work; the C++ version is simpler (for now), but we'll introduce the C version later.
+
+The C++ I/O library is in the ``<iostream>`` header and resides in the ``std`` (**St**andar**d** Library) namespace.
+To write, we use the ``std::cout`` function with the ``<<`` operator:
+
+TODO: add documentation
+[source, cpp]
+----
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    cout << "Hello World!" << endl;
+    return 0;
+}
+----

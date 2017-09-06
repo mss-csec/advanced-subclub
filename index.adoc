@@ -3,7 +3,8 @@ title: Advanced
 layout: landing
 category: advanced
 schedule:
-  example-lesson: 31 Dec 1969
+  setting-things-up: 31 Dec 1969
+  introduction-to-cpp:  1 Jan 1970
 ---
 
 Computer Science:: the study of automating algorithmic processes that scale
