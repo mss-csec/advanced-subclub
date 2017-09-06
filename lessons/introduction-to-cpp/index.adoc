@@ -65,7 +65,7 @@ The C++ I/O library is in the ``<iostream>`` header and resides in the ``std`` (
 To write (or print), we use the ``std::cout`` function with the ``<<`` operator:
 
 TODO: add documentation
-[source, cpp, numbered]
+[source, cpp numbered]
 ----
 #include <iostream>  //for std::cout, std::endl
 
