@@ -11,7 +11,7 @@ There are a few things which we will be using often in this course; it is impera
 Please ensure that the following are ready to use by the first lesson:
 
 * An IDE or compiler for your language of choice
-* A link:wcipeg.com[wcipeg] account, for challenging practice
+* A link:http://wcipeg.com[wcipeg] account, for challenging practice
 * A link:https://www.hackerrank.com/[HackerRank] account, for practice for every lesson
 
 The latter two points are rather trivial; the rest of this "lesson" regards the setup of an IDE for C++.
@@ -26,7 +26,7 @@ It can be downloaded link:http://www.codeblocks.org/downloads/26[here].
 ====
 The Mac OS-X version of Code::Blocks is outdated.
 
-You may wish to use a link:cpp.sh[C++ Shell] instead.
+You may wish to use a link:http://cpp.sh[C++ Shell] instead.
 ====
 [IMPORTANT]
 ====
@@ -45,9 +45,9 @@ IMPORTANT: Files will normally save as a C Source file with the .c extension. Ho
 
 Copy and paste the following code into your empty file:
 
-.helloworld.cpp
-[source,cpp]
-----
+**helloworld.cpp**
+++++
+{% highlight cpp linenos %}
 #include <iostream>
 
 int main(int argc, const char* argv[])
@@ -55,7 +55,8 @@ int main(int argc, const char* argv[])
     std::cout << "Hello World!" << std::endl;
     return 0;
 }
-----
+{% endhighlight %}
+++++
 
 In a toolbar at the top of your screen, you will see a button which looks like a green triangle (Run) next to a button which looks like a yellow gear (Compile). Next to those two buttons is a button with both. This is the Compile and Run button; click on it, and wait for your program to compile and run.
 
