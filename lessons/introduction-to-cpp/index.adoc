@@ -4,7 +4,7 @@ layout: lesson
 category: advanced
 lesson: 2
 ---
-= Introduction to C++
+= Introduction to {cpp}
 
 The Advanced Course begins with the assumption that you are familiar and comfortable with programming so that we can advance to more complex, more difficult, more interesting topics.
 
@@ -12,7 +12,7 @@ The Advanced Course begins with the assumption that you are familiar and comfort
 ====
 This course assumes you are familiar with every concept in this lesson, perhaps with the sole exception of Object Oriented Programming.
 
-If you are unable to solve problems such as {{give example here}}, then it would probably be wise to take the Beginners' course instead.
+If you are unable to solve problems such as <give example here>, then it would probably be wise to take the Beginners' course instead.
 ====
 
 The purpose of this lesson is to familiarize you with (or to provide you a review of) C++ syntax, which is this course's language of choice.
@@ -24,21 +24,22 @@ All text on the line of the double-slash, after the double-slash, is commented a
 Code::Blocks will colour them grey by default.
 In other environments, they are commonly coloured green.
 
-[source,cpp]
-----
+++++
+{% highlight cpp linenos %}
 // This is a single-line comment.
 
 int n; // This is also a single-line comment,
        // but what came before the double-slashes
        // will still be parsed by the compiler.
-----
+{% endhighlight %}
+++++
 
 Sometimes, very long or very short explanations may be warranted.
-The beginning of a comment block is denoted by ``/*`` and the ending by ``*/``.
+The beginning of a comment block is denoted by ``/\*`` and the ending by ``\*/``.
 This allows us to put a comment in the middle of a line -- or across multiple lines without needing to double-slash every line.
 
-[source,cpp]
-----
+++++
+{% highlight cpp linenos %}
 /* This is the beginning of a comment block.
  * It's standard convention to put an asterick
  * in front of all lines contained in a comment
@@ -51,7 +52,8 @@ This allows us to put a comment in the middle of a line -- or across multiple li
 
 int /* We're putting this here as an example;
 don't actually do this with simple statements.*/ n;
-----
+{% endhighlight %}
+++++
 
 Comments are used to document code; when we show code to you, you will see many comments explaining exactly what each line does.
 We would also appreciate it if, when you show us code to debug, you also include comments explaining what you intend each line to do.
@@ -59,9 +61,9 @@ We would also appreciate it if, when you show us code to debug, you also include
 == Input and Output
 
 C++ is a derivative of C, and both languages have their own library for I/O.
-Both methods work; the C++ version is simpler (for now), but we'll introduce the C version later.
+Both methods work; the {cpp} version is simpler (for now), but we'll introduce the C version later.
 
-The C++ I/O library is in the ``<iostream>`` header and resides in the ``std`` (**St**andar**d** Library) namespace.
+The {cpp} I/O library is in the ``<iostream>`` header and resides in the ``std`` (**St**andar**d** Library) namespace.
 
 === Output Using ``std::cout``
 
@@ -101,11 +103,11 @@ The real meat of the matter here is line 8:
     cout << "Hello World!" << endl;
 {% endhighlight %}
 ++++
-If you've never used C++ before, this line looks pathological.
+If you've never used {cpp} before, this line looks pathological.
 Did I not just say that ``std::cout`` is a function?
 What's with the double angle brackets?
 
-This is a very interesting peculiarity with C++; for some reason -- perhaps to appear more... beginner friendly? -- the ``<iostream>`` library really likes treating everything visually as a stream.
+This is a very interesting peculiarity with {cpp}; for some reason -- perhaps to appear more... beginner friendly? -- the ``<iostream>`` library really likes treating everything visually as a stream.
 The double angle brackets are like the direction of the stream: in this case, towards ``std::cout`` (which stands for, by the way, **C**onsole **Out**put).
 This becomes more clear when you begin to look at reading from the console.
 
@@ -123,7 +125,7 @@ However, if you're interacting with another program (like in practice problems),
 And, uhh, no... ``std::cout`` is _not_ actually a function; it's an object.
 We'll just stop here.
 
-### Input Using ``std::cin``
+=== Input Using ``std::cin``
 
 To read (or scan), we use the ``std::cin`` "function" and the operator ``>>``.
 
@@ -140,14 +142,14 @@ int main(int argc, const char* argv[])
     cout << n << endl; //spit n back out, then a newline and flush the stream.
     return 0;
 }
-{% endhighlight}
+{% endhighlight %}
 ++++
 
 Like with the pathological syntax of ``std::cout``, the syntax of ``std::cin`` resembles that of a flow equation: something goes _from_ ``std::cin`` _to_ ``n``.
 
 == Variables and Types
 
-In C++, variables are declared by writing ``[type] [variable name]``.
+In {cpp}, variables are declared by writing ``[type] [variable name]``.
 You can initialize them at declaration with ``[type] [variable name] = [value]``.
 
 [NOTE]
@@ -156,7 +158,7 @@ Many languages offer automatic null-initialization; for example, an ``int`` woul
 C is a low-level language (it's closer to the hardware), and providing automatic null-initialization would be wasteful, as a variable can be declared and then subsequently initialized.
 With null-initialization, there would be two writes: one with 0 and the next with the desired value; without, just one.
 
-Since C++ doesn't provide null initialization, you must remember to initialize variables you intend to use.
+Since {cpp} doesn't provide null initialization, you must remember to initialize variables you intend to use.
 Variable declaration only allocates memory; initially, its values would simply be whatever was there before.
 For your purposes, it's nothing but garbage.
 ====
@@ -179,13 +181,12 @@ int main(int argc, const char* argv[])
 ++++
 
 If you run this code, you should see an output like the following:
-++++
-{% highlight linenos %}
+
+----
 50786312
 A
 0.00000
 -2.46962e-185
-{% endhighlight %}
-++++
+----
 
 You may notice that the output differs on lines 1 and 4; that's because the program was outputting garbage that varies from machine to machine, from program to program, and from time to time.
