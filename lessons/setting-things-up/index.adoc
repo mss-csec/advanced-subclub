@@ -11,12 +11,12 @@ There are a few things which we will be using often in this course; it is impera
 Please ensure that the following are ready to use by the first lesson:
 
 * An IDE or compiler for your language of choice
-* A link:wcipeg.com[wcipeg] account, for challenging practice
+* A link:http://wcipeg.com[wcipeg] account, for challenging practice
 * A link:https://www.hackerrank.com/[HackerRank] account, for practice for every lesson
 
-The latter two points are rather trivial; the rest of this "lesson" regards the setup of an IDE for C++.
+The latter two points are rather trivial; the rest of this "lesson" regards the setup of an IDE for {cpp}.
 
-== An IDE for C++
+== An IDE for {cpp}
 
 *Code::Blocks* is a nice, minimalistic cross-platform IDE for C++. It is very useful for small programs \-- contest submissions \-- and, with some extra work, will support large projects.
 
@@ -26,7 +26,7 @@ It can be downloaded link:http://www.codeblocks.org/downloads/26[here].
 ====
 The Mac OS-X version of Code::Blocks is outdated.
 
-You may wish to use a link:cpp.sh[C++ Shell] instead.
+You may wish to use a link:http://cpp.sh[{cpp} Shell] instead.
 ====
 [IMPORTANT]
 ====
@@ -39,15 +39,15 @@ Make sure that you are downloading a `16.01mingw` version, as those include the 
 
 If you are running Code::Blocks on Mac OS-X, you may be urged to download a command line. Allow Code::Blocks to install the command line.
 
-Test that Code::Blocks is working by creating a new C++ file selecting _File \-> New \-> Empty file_, or with pass:[<kbd>Ctrl+Shift+N</kbd>]. Save this file with _File \-> Save_ or with pass:[<kbd>Ctrl+S</kbd>] with the file extension `.cpp`.
+Test that Code::Blocks is working by creating a new {cpp} file selecting _File \-> New \-> Empty file_, or with pass:[<kbd>Ctrl+Shift+N</kbd>]. Save this file with _File \-> Save_ or with pass:[<kbd>Ctrl+S</kbd>] with the file extension `.cpp`.
 
-IMPORTANT: Files will normally save as a C Source file with the .c extension. However, we are working in C++; your file *must* use the .cpp extension, or it will not be compiled as a C++ Source!
+IMPORTANT: Files will normally save as a C Source file with the .c extension. However, we are working in {cpp}; your file *must* use the .cpp extension, or it will not be compiled as a {cpp} Source!
 
 Copy and paste the following code into your empty file:
 
-.helloworld.cpp
-[source,cpp]
-----
+**helloworld.cpp**
+++++
+{% highlight cpp linenos %}
 #include <iostream>
 
 int main(int argc, const char* argv[])
@@ -55,7 +55,8 @@ int main(int argc, const char* argv[])
     std::cout << "Hello World!" << std::endl;
     return 0;
 }
-----
+{% endhighlight %}
+++++
 
 In a toolbar at the top of your screen, you will see a button which looks like a green triangle (Run) next to a button which looks like a yellow gear (Compile). Next to those two buttons is a button with both. This is the Compile and Run button; click on it, and wait for your program to compile and run.
 
