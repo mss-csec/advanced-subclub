@@ -190,3 +190,28 @@ A
 ----
 
 You may notice that the output differs on lines 1 and 4; that's because the program was outputting garbage that varies from machine to machine, from program to program, and from time to time.
+
+You can declare two variables on the same statement like in line seven.
+Each variable is initialized separately.
+
+In {cpp}, there are four primitive types:
+
+- the ``int``, an **int**egral type which supports integers from -2,147,483,648 to 2,147,483,647,
+- the ``float``, a **float**ing-point type which supports six decimal digits of precision,
+- the ``char``, a single-byte type which supports the default 128 ASCII **char**acters, and
+- the ``bool``, a **boo**lean type which supports the boolean values ``true`` (1) and ``false``(2).
+
+[NOTE]
+====
+You may be more familiar with the ``double`` primitive type, which is the **double**-precision floating-point type; if you ever find yourself really in need of using floating points, the ``double`` is most likely a better choice than the ``float``.
+
+The ``double`` supports fifteen decimal digits of precision.
+====
+[NOTE]
+====
+In general, try to avoid using floating-point types, especially if your calculations include addition and subtraction.
+If you must use floating points, try to restrict them to multiplication and division.
+
+You can see why this is the case if you try to test if ``0.1 + 0.2 == 0.3``, or if ``1.0 / 0.0 == 1.0 / -0.0``.
+In the former case, there's not enough precision and the addition results in an extra little \(4\times10^{-17}\); in the latter, ``1.0 / 0.0`` should result ``#INF``
+====
