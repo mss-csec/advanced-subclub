@@ -199,7 +199,7 @@ In {cpp}, there are four primitive types:
 - the ``int``, an **int**egral type which supports integers from -2,147,483,648 to 2,147,483,647,
 - the ``float``, a **float**ing-point type which supports six decimal digits of precision,
 - the ``char``, a single-byte type which supports the default 128 ASCII **char**acters, and
-- the ``bool``, a **boo**lean type which supports the boolean values ``true`` (1) and ``false``(2).
+- the ``bool``, a **bool**ean type which supports the boolean values ``true`` (1) and ``false``(2).
 
 [NOTE]
 ====
@@ -213,5 +213,37 @@ In general, try to avoid using floating-point types, especially if your calculat
 If you must use floating points, try to restrict them to multiplication and division.
 
 You can see why this is the case if you try to test if ``0.1 + 0.2 == 0.3``, or if ``1.0 / 0.0 == 1.0 / -0.0``.
-In the former case, there's not enough precision and the addition results in an extra little \(4\times10^{-17}\); in the latter, ``1.0 / 0.0`` should result ``#INF``
+In the former case, there's not enough precision and the addition results in an extra little \(4\times10^{-17}\); in the latter, ``1.0 / 0.0`` should result ``#INF`` and ``1.0 / -0.0`` should result ``-#INF``, even though ``0.0`` and ``-0.0`` are both mathematically and computationally equivalent.
 ====
+
+=== Operations on Primitives
+
+There are six base operations and five compound operations that can be applied to primitive types:
+
+- *assignment:* ``a = b`` sets the value of ``a`` to the value of ``b`` (whether ``b`` is a constant or variable), and returns the new value of ``a``. You can assign smaller types to larger types, like if ``a`` was an ``int`` and ``b`` was a ``char``.
+- *addition:* ``a + b`` returns the sum of ``a`` and ``b``; the return type is the largest type in the operation (in the order of ``double``, ``int``, ``char``). ``int``s and ``char``s can overflow -- if the result if over the capacity of the type, it will wrap around. Floating-point overflows result ``#INF``.
+- *subtraction:* ``a - b`` returns the difference of ``b`` from ``a``; the return type and overflow behaviour is the same as with addition.
+- *multiplication:* ``a * b`` retursn the product of ``a`` and `` b``. The return type and overflow behaviour is the same as with addition.
+- *division:* ``a / b`` returns the quotient of ``a`` divided by ``b``. If both ``a`` and ``b`` are integral types, the return type is also integral and the result is truncated (round towards zero). If either is a floating-point type, the result will be floating-point. Integer division by zero will immediately crash a program. Floating-point division by zero results ``±INF`` depending on the signs of the divisor and the zero and ``#IND`` if the numerator is also zero.
+- *modulus:* ``a % b`` returns the modulus, or remainder, of ``a`` divided by ``b``. The modulus is only valid across integral types, and anything modulo zero will immediately crash the program. Typically, the result of a modulus has the same sign as the divisor.
+
+The five compound operations do both an operation and an assignment:
+
+++++
+{% highlight cpp %}
+    n += m; //equivalent to n = n + m;
+    n -= m; //equivalent to n = n - m;
+    n *= m; //equivalent to n = n * m;
+    n /= m; //equivalent to n = n / m;
+    n %= m; //equivalent to n = n % m;
+{% endhighlight %}
+++++
+
+Since operations can boith assign and return a value, you can do things like this:
+
+++++
+{% highlight cpp %}
+    std::cout << 3 + (n = m + (l *= 2));
+    // assigns l to 2l, n to m + 2l, and prints 3 + m + 2l
+{% endhighlight %}
+++++
