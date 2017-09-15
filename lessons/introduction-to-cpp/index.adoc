@@ -218,7 +218,7 @@ In the former case, there's not enough precision and the addition results in an 
 
 === Operations on Primitives
 
-There are six base operations and five compound operations that can be applied to primitive types:
+There are six base operations, five compound operations, and four abbreviated operations that can be applied to primitive types:
 
 - *assignment:* ``a = b`` sets the value of ``a`` to the value of ``b`` (whether ``b`` is a constant or variable), and returns the new value of ``a``. You can assign smaller types to larger types, like if ``a`` was an ``int`` and ``b`` was a ``char``.
 - *addition:* ``a + b`` returns the sum of ``a`` and ``b``; the return type is the largest type in the operation (in the order of ``double``, ``int``, ``char``). ``int``s and ``char``s can overflow -- if the result if over the capacity of the type, it will wrap around. Floating-point overflows result ``#INF``.
@@ -236,6 +236,10 @@ The five compound operations do both an operation and an assignment:
     n *= m; //equivalent to n = n * m;
     n /= m; //equivalent to n = n / m;
     n %= m; //equivalent to n = n % m;
+n ++;
+++ n;
+n--;
+--n;
 {% endhighlight %}
 ++++
 
@@ -245,5 +249,76 @@ Since operations can boith assign and return a value, you can do things like thi
 {% highlight cpp %}
     std::cout << 3 + (n = m + (l *= 2));
     // assigns l to 2l, n to m + 2l, and prints 3 + m + 2l
+{% endhighlight %}
+++++
+
+=== Arrays
+
+In C++, an array is a modifier on a type. They're declared by adding ``[]`` at the end of variable name, initialized with ``{}``, and accessed with ``[]``.
+
+++++
+{% highlight cpp linenos %}
+    int n, arr[10];
+    double darr[] = {3.0, 3.1, 3.14, 3.141, 3.1415, 3.14159};
+    int arr_null_init[100] = {1};
+{% endhighlight %}
+++++
+
+Line 1 declares an ``int``, ``n``, and an array of 10 ``int``s, ``arr``.
+Both are filled with garbage.
+
+Line 2 declares an array of six ``double``s, initialized to pi at various precisions.
+Line 3 declares an array of a hundred ``int``s, all initizalized to zero _except_ position 0, which is initialized to ``1``.
+
+In {cpp}, arrays are zero-indexed:
+
+++++
+{% highlight cpp linenos %}
+    int arr[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    std::cout << arr[0] << arr[9] << arr[10];
+{% endhighlight %}
+++++
+
+This snippet of code will output ``09`` and then some garbage (there are no spaces as we didn't specify any), since the 10th index is after the end of the array.
+
+==== ``std::vector``
+
+If you need an array type but don't know how many elements you need, you can use an ``std::vector`` from ``<vector>``.
+``std::vector``s begin with zero size and zero capacity, but increase as you add more elements with ``std::vector<T>::push_back(T)``, create more elements with std::vector<T>::emplace_back(T())``, or reserve space for elements with ``std::vector<T>::reserve(int)``.
+The increase in size and capacity is done automatically when needed.
+
+Elements can also be removed off the back with ``std::vector<T>::pop_back()``.
+
+When declaring vectors, a type must be specified in angle brackets.
+Since they are not primitive types, vectors are automatically initialized.
+
+++++
+{% highlight cpp linenos %}
+#include <vector>
+#include <iostream>
+
+int main(int argc, const char* argv[])
+{
+    std::vector<int> arr;   //no need to set initializations! In fact, they'll give you errors.
+    int size, in = 0;
+    
+    std::cin >> size;
+
+    arr.reserve(size)
+    
+    while(in >= 0)         //leave when you get a negative input
+    {
+	arr.push_back(in); //will automatically add directly to the end of the vector
+        std::cin >> in;
+    }
+
+    //spit everything back out
+    for (int i = 1; i < arr.size(); ++i)
+    {
+        std::cout << arr[i] << std::endl;
+    }
+    
+    return 0;
+}
 {% endhighlight %}
 ++++
