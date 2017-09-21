@@ -252,6 +252,16 @@ Since operations can boith assign and return a value, you can do things like thi
 {% endhighlight %}
 ++++
 
+==== Boolean Operations and Branching
+
+Branching is an important part of any program. In {cpp}, this is accomplished using the ``if`` and ``switch`` statements:
+
+++++
+{% highlight cpp %}
+
+{% endhighlight %}
+++++
+
 === Arrays
 
 In C++, an array is a modifier on a type. They're declared by adding ``[]`` at the end of variable name, initialized with ``{}``, and accessed with ``[]``.
