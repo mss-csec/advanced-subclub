@@ -257,10 +257,62 @@ Since operations can boith assign and return a value, you can do things like thi
 Branching is an important part of any program. In {cpp}, this is accomplished using the ``if`` and ``switch`` statements:
 
 ++++
-{% highlight cpp %}
-
+{% highlight cpp linenos %}
+    if (n > 10) //for n is some int
+    {
+        std::cout << "n is greater than 10." << std::endl;
+    }
+    else if (n < 10)
+    {
+        std::cout << "n is less than 10." << std::endl;
+    }
+    else
+    {
+        std::cout << "n is 10." << std::endl;
+    }
+    
+    switch (c) //for c is some char
+    {
+        case 'Z':
+            std::cout << "Z, the last letter of the alphabet" << std::endl;
+            break; //ends the branch
+        case 'Y':
+            std::cout << "Y, a consonant, but also ";
+            //because there's no break statement, the 'Y' case leaks
+            //into the next cases.
+        case 'A':
+        case 'E': //you can chain cases that should
+        case 'I': //result in the same behavior.
+        case 'O':
+        case 'U':
+            std::cout << c << ", a vowel." << std::endl;
+            break;
+        default:
+            std::cout << "fatal error, terminating program" << std::endl;
+            c = 1/0;
+            break;
+    }
 {% endhighlight %}
 ++++
+
+While ``if`` statements take boolean values, ``switch`` statements take a variable and check cases against constant, compiler-time-deterministic values.
+
+[NOTE]
+====
+Since ``if`` statements directly take boolean variables, if you have a boolean variable you wish to check, you can directly put it into the statement:
+
+++++
+{% highlight cpp %}
+    bool b = true;
+    if (b)
+    {
+        std::cout << "asdf";
+    }
+{% endhighlight %}
+++++
+
+will always write ``asdf``, barring extreme circumstances.
+====
 
 === Arrays
 
