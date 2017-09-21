@@ -325,6 +325,7 @@ To use other primitive types with ``if`` statements (or more generally, conditio
 - *logical negation:* ``!a`` returns ``true`` if ``a`` is ``false`` and vice-versa. This operator is commonly called the "bang," and is also known as the "logical NOT."
 - *logical AND:* ``a && b`` returns ``true`` if both ``a`` and ``b`` are true, and otherwise ``false``. Evaluation is always left-to-right; if ``a`` is ``false``, then ``b`` will not be evaluated.
 - *logical OR:* ``a || b`` returns ``true`` if _either_ ``a`` or ``b`` are true, and otherwise ``false``. Evaluation is always left-to-right; if ``a`` is ``true``, then ``b`` will not be evaluated.
+- *ternary operator:* ``a ? b : c`` returns ``b`` if ``a`` is ``true``, and ``c`` if ``a`` is ``false``. This is a powerful operator that allows for interesting shortcuts in code; typically, they make code harder to read, but easier to write. Interestingly, despite being defined similarly, they don't behave similarly to ``if`` statements; they are, on average, 60% faster.
 
 [IMPORTANT]
 ====
@@ -408,5 +409,25 @@ int main(int argc, const char* argv[])
     
     return 0;
 }
+{% endhighlight %}
+++++
+
+== Loops
+
+When dealing with arrays or anything which requires immediate repetition, we use loops. (Of course, you know this already.)
+
+In {cpp}, there are three primitive loops: the ``for`` loop, the ``while`` loop, and the ``do .. while`` loop.
+
+++++
+{% highlight cpp linenos %}
+    int arr[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int arr_size = 10;
+    
+    ...
+    
+    for (int i = 0; i < arr_size; ++i)
+    {
+
+    }
 {% endhighlight %}
 ++++
