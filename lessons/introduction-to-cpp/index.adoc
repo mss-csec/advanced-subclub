@@ -236,14 +236,14 @@ The five compound operations do both an operation and an assignment:
     n *= m; //equivalent to n = n * m;
     n /= m; //equivalent to n = n / m;
     n %= m; //equivalent to n = n % m;
-n ++;
-++ n;
-n--;
---n;
+    n ++;   //equivalent to n = n + 1;, but returns the original value of n.
+    ++ n;   //equivalent to n = n + 1;
+    n --;   //equivalent to n = n - 1;, but returns the original value of n.
+    -- n;   //equivalent to n = n - 1;
 {% endhighlight %}
 ++++
 
-Since operations can boith assign and return a value, you can do things like this:
+Since operations can both assign and return a value, you can do things like this:
 
 ++++
 {% highlight cpp %}
@@ -314,6 +314,32 @@ Since ``if`` statements directly take boolean variables, if you have a boolean v
 will always write ``asdf``, barring extreme circumstances.
 ====
 
+To use other primitive types with ``if`` statements (or more generally, conditional statements), you can use various boolean operators:
+
+- *equivalence:* ``a == b`` returns ``true`` if ``a`` and ``b`` have exactly the same value, bit-by-bit (with the exception that `0.0` and `-0.0` are equivalent). Otherwise, it returns ``false``.
+- *not equal to:* ``a != b`` returns ``true`` if ``a`` is _not_ equivalent to ``b``. Otherwise, it returns ``false``. Commonly, this is called the "bang equals". This operator is also equivalent to an exclusive or on boolean values.
+- *strict less than:* ``a < b`` returns ``true`` if ``a`` is less than, and not equal to, ``b``. Otherwise, it returns ``false``.
+- *strict greater than:* ``a > b`` returns ``true`` if ``a`` is greater than, and not equal to, ``b``. Otherwise, it returns ``false``.
+- *less than or equal to:* ``a \<= b`` returns ``true`` if ``a`` is less than _or_ equal to ``b``. Otherwise, it returns ``false``.
+- *greater than or equal to:* ``a >= b`` returns ``true`` if ``a`` is greater than _or_ equal to ``b``. Otherwise, it returns ``false``.
+- *logical negation:* ``!a`` returns ``true`` if ``a`` is ``false`` and vice-versa. This operator is commonly called the "bang," and is also known as the "logical NOT."
+- *logical AND:* ``a && b`` returns ``true`` if both ``a`` and ``b`` are true, and otherwise ``false``. Evaluation is always left-to-right; if ``a`` is ``false``, then ``b`` will not be evaluated.
+- *logical OR:* ``a || b`` returns ``true`` if _either_ ``a`` or ``b`` are true, and otherwise ``false``. Evaluation is always left-to-right; if ``a`` is ``true``, then ``b`` will not be evaluated.
+
+[IMPORTANT]
+====
+When checking for equivalence, ensure that you use the _double equal_ operator, or you will be assigning values and using the assigned value!
+``if (n = 0)`` will _never_ fire, and ``if (n = 1)`` will _always_ fire because the assigned values will always be used in the check!
+====
+[NOTE]
+====
+Because the logical AND and logical OR will ignore their second operand if the result can be determined directly from the first, compound expressions can be dangerous. ``true || (++n > 10)`` will _never_ increment n.
+
+However, they can also be useful when checking things that may explode in your face without extra checks:
+``d != 0 && n / d > 3``
+will never explode your program due to a divide-by-zero, as if ``d`` were zero then ``n / d`` would never evaluate.
+====
+
 === Arrays
 
 In C++, an array is a modifier on a type. They're declared by adding ``[]`` at the end of variable name, initialized with ``{}``, and accessed with ``[]``.
@@ -343,7 +369,7 @@ In {cpp}, arrays are zero-indexed:
 
 This snippet of code will output ``09`` and then some garbage (there are no spaces as we didn't specify any), since the 10th index is after the end of the array.
 
-==== ``std::vector``
+==== Variable-size Arrays: ``std::vector``
 
 If you need an array type but don't know how many elements you need, you can use an ``std::vector`` from ``<vector>``.
 ``std::vector``s begin with zero size and zero capacity, but increase as you add more elements with ``std::vector<T>::push_back(T)``, create more elements with std::vector<T>::emplace_back(T())``, or reserve space for elements with ``std::vector<T>::reserve(int)``.
