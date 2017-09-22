@@ -5,6 +5,7 @@ category: advanced
 lesson: 2
 ---
 = Introduction to {cpp}
+:toc: macro
 
 The Advanced Course begins with the assumption that you are familiar and comfortable with programming so that we can advance to more complex, more difficult, more interesting topics.
 
@@ -16,6 +17,8 @@ If you are unable to solve problems such as <give example here>, then it would p
 ====
 
 The purpose of this lesson is to familiarize you with (or to provide you a review of) C++ syntax, which is this course's language of choice.
+
+toc::[]
 
 == Comments
 
