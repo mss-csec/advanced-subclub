@@ -428,9 +428,153 @@ In {cpp}, there are three primitive loops: the ``for`` loop, the ``while`` loop,
     
     ...
     
+    //there are three statements in the declaration of a for-loop:
+    // - the initializer, which is run as soon as scope enters the loop,
+    // - the condition, which is run before each iteration, and
+    // - the increment, which is run after each iteration.
     for (int i = 0; i < arr_size; ++i)
     {
-
+        std::cout << arr[i];
     }
+    std::cout << std::endl;
+    
+    //the while loop is simpler; it's like an if-statement but every
+    //time we're about to leave the scope of the loop it goes back to
+    //the condition.
+    int i = 0;
+    while (i < arr_size)
+    {
+        std::cout << arr[i];
+        ++i;
+    }
+    
+    //the do..while loop is like the while loop, except the first
+    //iteration will always run.
+    i = 0;
+    do
+    {
+        std::cout << arr[i];
+        ++i;
+    } while (i < arr_size);
+{% endhighlight %}
+++++
+
+[NOTE]
+====
+All three loops do not _necessarily_ need to have statements.
+
+The ``for`` loop can be written as ``for(;;)``, and it will run as an infinite loop.
+The ``while`` and ``do..while`` loops can be written as ``while(1)`` and they will also run as infinite loops.
+====
+
+Sometimes, you need to be able to control the actions of loops while inside it, usually when checking for edge cases.
+In these cases, you can use the ``break`` and ``continue`` keywords:
+
+- ``break`` immediately exits the _innermost_ loop, and
+- ``continue`` immediately exits the _current iteration_ of the innermost loop. In a ``for`` loop, this counts and the end of an iteration, and the increment and condition statements will be immediately evaluated.
+
+== Strings
+
+C is a low-level language, and supports the ``char*`` or ``char[]`` type as a string.
+In C, string manipulation is usually done through the ``<string.h>`` library.
+{cpp} introduces the ``<string>`` library to make string manipulation a little less horrible.
+
+++++
+{% highlight cpp linenos %}
+#include <iostream>
+#include <string>
+#include <string.h>
+
+int main(int argc, const char* argv[])
+{
+    char cstr[1024] = "This is a C-style string.";
+    strcpy(cstr+8, "C-style string manipulation.");
+    strcat(cstr, " This is the most accurate version of string manipulation, ");
+    strcat(cstr, "but is a pain to do when you're new to the language.");
+    std::cout << cstr << std::endl;
+    
+    std::string str("This is a C++ STL string.");
+    str = str.substr(0, 8) + "manipulation of" + str.substr(7, std::string::npos);
+    str += " It's a lot easier to grasp, but it's certainly not as fast";
+    str += " computationally, if you know how to do C-string manipulation.";
+    std::cout << str << std::endl;
+    
+    return 0;
+}  
+{% endhighlight %}
+++++
+
+The link:++http://www.cplusplus.com/reference/cstring/++[refer]link:++http://www.cplusplus.com/reference/string/string/++[ence] is very useful when dealing with strings.
+
+[NOTE]
+====
+C-strings are pointer-based and manipulation is heavy on the use of pointers.
+If you aren't comfortable with pointers, you should probably stick to STL strings.
+====
+
+== Modularity
+
+=== Functions
+
+In C/{cpp}, there isn't really a big difference between methods/procedures and functions: they're all declared the same way and behave pretty much the same way.
+Methods/procedures just have return type ``void``; that is to say, it doesn't return anything and so they can't be used in expressions.
+
+++++
+{% highlight cpp linenos %}
+#include <iostream>
+
+//return type, name, params
+int add(int a, int b)
+{
+    //code goes here (in this case, it's unnecessary).
+    //if the return type is not void, you must return a value
+    //in every possible branch.
+    return a + b;
+}
+
+//return type, name, params; in this case, this is a method
+//so it returns void
+void print(int n)
+{
+    std::cout << n << std::endl;
+    
+    //in methods, returning is optional, but you can choose to return
+    //down certain branches to terminate early.
+    return;
+}
+
+//main can also return void in certain environments, and typically the
+//parameters are unnecessary. It's good form to include them, though.
+int main(int argc, const char* argv[])
+{
+    print(add(2,3));
+    
+    //the main function actually doesn't need to return, but it's good form.
+    return 0;
+}
+{% endhighlight %}
+++++
+
+=== ``struct``s
+
+In {cpp} there are ``class``es you can use, but they're designed specifically for OOP and are sometimes rather finicky to work with.
+``struct``s were made for C, and so they're somewhat easier to work with, since they're just wrappers for groups of data.
+
+++++
+{% highlight cpp linenos %}
+#include <iostream>
+
+struct whatever
+{
+    int a, b;     //member variables
+    void print(); //member function prototype
+}; //this semicolon is important!
+
+// this is how you 
+void whatever::print()
+{
+    
+}
+
 {% endhighlight %}
 ++++
