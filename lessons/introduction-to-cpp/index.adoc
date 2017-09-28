@@ -570,11 +570,43 @@ struct whatever
     void print(); //member function prototype
 }; //this semicolon is important!
 
-// this is how you 
+// this is how you define a member function outside its parent's declaration:
+// you need the scope resolution operator (::). You can also directly define
+// it inside its parent, but it's better form to do it outside as there's
+// less clutter when you're checking what you can do with a struct.
 void whatever::print()
 {
-    
+    std::cout << a + b << std::endl;
 }
 
+int main()
+{
+    whatever w;
+    w.a = 5;
+    w.b = 895623;
+    w.print();
+    
+    return 0;
+}
+{% endhighlight %}
+++++
+
+=== Prototype declarations
+
+Sometimes you will need to reference two functions or types within each other.
+{cpp} compilers parse from the top of the document to the bottom, so if a symbol isn't yet declared it will start screaming at you even if it's declared later.
+What you can do is make a prototype declaration to tell the compiler, "Hey, here's something I'm going to use before I define," and it won't flip out.
+
+++++
+{% highlight cpp linenos %}
+int recursion_a();
+int recursion_b()
+{
+    recursion_a();
+}
+int recursion_a()
+{
+    recursion_b();
+}
 {% endhighlight %}
 ++++
