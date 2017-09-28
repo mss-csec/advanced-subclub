@@ -6,4 +6,21 @@ lesson: 3
 ---
 = Type Modifiers and Pointers
 
-You were probably taught that "variables hold a value"
+You were probably taught that "variables hold a value," and that "different types hold different types of values."
+
+The first statement is correct, but doesn't show the full picture of what a variable is.
+The second statment is wrong.
+
+== What is a variable?
+
+In programming, a *variable* refers to a segment of memory which is to be read from or written to during calculations.
+
+This segment of memory has a specific *length*. Standard ``int``s today are four bytes long. Since a bit can only store a certain amount of information, and bytes are collections of eight bits, there is only so much information that a four-byte ``int`` can hold.
+
+Specifically, one of the thirty-two bits must be used to hold the sign of the number.
+The rest thirty-one are used to indicate the magnitude of the number.
+As such, a thirty-two bit ``int`` (or ``int32``) can store integers between, inclusive, -2,147,483,648 and 2,147,483,647.
+
+A *type* does not refer to the type of value that is _stored_, but rather the type of value that should be _interpreted_ from the stored data.
+A ``float``, for example, which stores the value of \(\sqrt{2}\) to its highest precision, will be interpreted as something like \(1.414214\). However, if you interpret its data as an ``int``, then you'll get \(1,068,827,891\).
+
