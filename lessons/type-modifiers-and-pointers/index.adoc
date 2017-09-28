@@ -1,0 +1,9 @@
+---
+liquid: true
+layout: lesson
+category: advanced
+lesson: 3
+---
+= Type Modifiers and Pointers
+
+You were probably taught that "variables hold a value"

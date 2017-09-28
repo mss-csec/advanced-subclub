@@ -4,6 +4,7 @@ category: advanced
 schedule:
   setting-things-up: 31 Dec 1969
   introduction-to-cpp:  1 Jan 1970
+  type-modifiers-and-pointers: 2 Jan 1970
 ---
 = Advanced
 
