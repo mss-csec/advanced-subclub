@@ -58,8 +58,89 @@ The CPU then reads that the data is \(\text{00}_{16}\), and so tells the warehou
 
 This is what an assignment between variables actually isfootnote:[actually there's also the *cache* between the RAM and CPU, which speeds up this retrieval process. But that's not so important to know right now.]: the CPU requests from RAM, then tells RAM to change a value.
 
-Now, most types take _more_ than one byte, but the same process still works. If you're using ``int``s (four bytes), then the CPU will request four bytes and tell memory to assign four bytes.
+Now, most types take _more_ than one byte, but the same process still works.
+If you're using ``int``s (four bytes), then the CPU will request four bytes and tell memory to assign four bytes.
+If you're working with ``float``s (four bytes), then the CPU will request and ask to write four bytes, but will use floating-point operations instead.
 
+Consider what the following code does:
+
+++++
+{% highlight cpp linenos %}
+	int i = 07 j = 5;
+    int k = i + j;
+{% endhighlight %}
+++++
+
+The CPU, reading these instructions, will assign memory values to each ``int``.
+If we say that ``i`` is address ``100``, ``j`` is at ``104``, and ``k`` is at ``108``, then the process will be something like this:
+
+ . CPU tells RAM to assign ``100`` (four bytes) to ``00000007``
+ . CPU tells RAM to assign ``104`` (four bytes) to ``00000005``
+ . CPU requests the values of addresses ``100`` (four bytes) and ``104`` (four bytes), obtaining ``000000007`` and ``00000005``
+ . CPU adds these values together , obtaining ``0000000C``
+ . CPU tells RAM to assign ``108`` (four bytes) to ``0000000C``
+
+=== Type Modifiers
+
+Notice that we are specifying how many bytes to to assign and request.
+What if we only needed to use two bytes for our variable?
+What if we needed more than four bytes, because we expect to use numbers larger than \(2,147,483,647\)?
+What if we don't need to store negatives in our variable?
+
+This is where *type modifiers* come in.
+They modify the lengths and behaviours of variables.
+
+There's a few you should know about:
+
+- ``short``: halves the length of a variable.
+Applicable to ``int`` only.
+- ``long``: doubles the length of a variable.
+Applicable to ``int``, ``long``footnote:[due to legacy issues, the ``long`` is a 4-byte ``int``. ``long int`` _may_ actually refer to a 4-byte int depending on your operating system, and so if you want an 8-byte int you'll need a ``long long``.], ``char``, and ``double``footnote:[actually, it makes ``double``s 12 bytes long up from 8 bytes; doubles are already  "long floats."]
+- ``unsigned``: the first bit of the variable will now be used as another digit rather than a sign indicator.
+Applicable to ``int``, ``long``, and ``char``.
+- ``signed``: opposite of above. Not really too useful, since it isn't really necessary much of the time.
+- ``const``: prevents this variable from being altered.
+This is actually a compile-time behaviour, and doesn't affect how the hardware handles things.
+- ``static``: declares this variable with a global lifetime, despite that it may be in a non-global scope.
+Not particularly useful for your purposes.
+
+There are many questions where you may be asked to compute something very large; these are where ``long long``s become vital.
+
+=== Pointers
+
+Recall our little exercise at the end of the _Variables in Memory_ section.
+
+Addresses are just numbers -- four-byte numbers, at that, if you're running 32-bit programsfootnote:[if you're running 64-bit programs, they're eight bytes.].
+What if you wanted to say "hey, get me the value stored at the address indicated by that variable"?
+
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/Pointers.svg/220px-Pointers.svg.png++[a pointer; source: wikipedia]
+
+Essentially, you're setting a variable to *reference* some address in memory.
+
+Now, they're not actually references.
+[IMPORTANT]
+====
+Pointers are not actually references.
+====
+[IMPORTANT]
+====
+Yes, I'm doing this again.
+
+This is *important*.
+
+Pointers are not actually references.
+====
+
+Pointers merely store a number.
+When _interpreted_ as a pointer, it _refers_ to an address.
+But _only_ when interpreted with the right instructions.
+
+Changing the value of the pointer _itself_ will only move the "arrow of reference."
+It doesn't change what the pointer is pointing to.
+
+To use it, you must *dereference* it first by telling the CPU, "hey, instead of just changing this address, change the address that this address stores."
+
+Take a second to digest that sentence; the distinctions are important.
 
 
 
