@@ -19,8 +19,52 @@ This segment of memory has a specific *length*. Standard ``int``s today are four
 
 Specifically, one of the thirty-two bits must be used to hold the sign of the number.
 The rest thirty-one are used to indicate the magnitude of the number.
-As such, a thirty-two bit ``int`` (or ``int32``) can store integers between, inclusive, -2,147,483,648 and 2,147,483,647.
+As such, a thirty-two bit ``int`` (or ``int32``) can store integers between, inclusive, \(-2,147,483,648\) and \(2,147,483,647\).
 
 A *type* does not refer to the type of value that is _stored_, but rather the type of value that should be _interpreted_ from the stored data.
 A ``float``, for example, which stores the value of \(\sqrt{2}\) to its highest precision, will be interpreted as something like \(1.414214\). However, if you interpret its data as an ``int``, then you'll get \(1,068,827,891\).
+
+It's kind of like words across different languages.
+In English, "die" means _to cease living_.
+In Dutch, "die" means _this one_.
+They're denoted -- stored -- the same way, but the _interpretation_ is different, which leads to unfortunate misunderstandings like this:
+
+image:++http://68.media.tumblr.com/tumblr_lq48s3ZUz81r1vpugo1_500.png++["Mama, die, die, die...; source: tumblr"]
+
+=== Variables in Memory
+
+[quote, "Me, in like the first paragraph"]
+In programming, a *variable* refers to a segment of memory which is to be read from or written to during calculations.
+
+Variables are put into segments of memory.
+So what's memory?
+
+I'm sure you're familiar with what RAM sticks are: they're your "working memory" while your computer runs.
+Each stick of RAM is delimited into little chunks of eight bits called _bytes_.
+So that we can find these bytes, each and every one of them has an *address*.
+
+You can think of working memory as a giant warehouse.
+
+image:++https://www.thesun.co.uk/wp-content/uploads/2016/03/1625857.main_image.jpg?strip=all++[Amazon warehouse; source: The Sun]
+
+In each little shelf is a small sheet of paper, holding an eight-bit binary number (or, if you wish, a number between 0 and 255).
+
+The CPU is like a little office in the next building over.
+It doesn't understand what's going on; all it does is take instructions and carry them out.
+
+One instruction says to assign byte \(\text{2300003A}_{16}\)footnote:[this is hexadecimal, a 16-digit base (or radix) for numbers. It's a common way to represent binary numbers, since it's much more compact than writing every bit out. This way, each digit represents one *nibble*, or half-byte.] the value at byte \(\text{23000038}_{16}\).
+The CPU (office) requests for byte \(\text{23000038}_{16}\) from the RAM (warehouse), and so the workers at the warehouse retrieve this data for the CPU.
+The CPU then reads that the data is \(\text{00}_{16}\), and so tells the warehouse to assign byte \(\text{23000038}_{16}\) the value \(\text{00}_{16}\).
+
+This is what an assignment between variables actually isfootnote:[actually there's also the *cache* between the RAM and CPU, which speeds up this retrieval process. But that's not so important to know right now.]: the CPU requests from RAM, then tells RAM to change a value.
+
+Now, most types take _more_ than one byte, but the same process still works. If you're using ``int``s (four bytes), then the CPU will request four bytes and tell memory to assign four bytes.
+
+
+
+
+
+
+
+
 
