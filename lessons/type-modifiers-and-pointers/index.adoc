@@ -106,6 +106,18 @@ Not particularly useful for your purposes.
 
 There are many questions where you may be asked to compute something very large; these are where ``long long``s become vital.
 
+++++
+{% highlight cpp linenos %}
+    short int si;		//declare a short int (2-byte int) called si
+    long long ll;		//declare a long long (8-byte int) called ll
+    unsigned int ui;	//declare an unsigned int (4-byte u-int) called ui
+{% endhighlight %}
+++++
+
+Oftentimes the standard library will use types like ``uint32_t``, or ``size_t``.
+The link:++http://www.cplusplus.com/reference/cstdint/++[<stdint.h>] and link:++http://www.cplusplus.com/reference/cstddef/++[<stddef.h>] libraries contains these types.
+If you get compiler errors that mention these, now you might know what the heck they are!
+
 === Pointers
 
 Recall our little exercise at the end of the _Variables in Memory_ section.
@@ -124,27 +136,58 @@ Pointers are not actually references.
 ====
 [IMPORTANT]
 ====
-Yes, I'm doing this again.
-
-This is *important*.
-
-Pointers are not actually references.
+Pointers are *not* actually references.
 ====
 
 Pointers merely store a number.
 When _interpreted_ as a pointer, it _refers_ to an address.
-But _only_ when interpreted with the right instructions.
+But this is _only_ when interpreted with the right instructions.
 
 Changing the value of the pointer _itself_ will only move the "arrow of reference."
 It doesn't change what the pointer is pointing to.
 
-To use it, you must *dereference* it first by telling the CPU, "hey, instead of just changing this address, change the address that this address stores."
+To use it, you must *dereference* it first by telling the CPU, "hey, instead of just changing this address (the pointer), change the address (the address "referenced" by the pointer) that this address (the pointer) stores."
 
 Take a second to digest that sentence; the distinctions are important.
 
+There's a few new operations you now need to know:
 
+++++
+{% highlight cpp linenos %}
+	int a = 5;
+    int *p;
+    p = &a;
+    *p += 50;
+    new p[a];
+    *p = 0;
+    *(p+1) = 1;
+    p[2] = 2;
+    delete[] p;
+{% endhighlight %}
+++++
 
+- Line 2: when declaring a pointer, an asterick must be placed *before* the variable name, which denotes it as a pointer.
+This is a *type modifier*, applicable to _all_ typesfootnote:[a pointer is a type, and so you can have a pointer to a pointer. Or a pointer to a pointer to a pointer. Or a pointer to a pointer to a pointer to a pointer to a pointer... you get the point. You'd declare it as ``int pass:[*****] fifth_dimentional_pointer``.].
+Whitespace does not matter: ``int * p``, ``int* p``, ``int *p``, ``int*p`` all do the same thingfootnote:[you can declare different levels of pointers on the same line: ``pass:[int a, *b, **c]`` gives you an int a, a pointer to int b, and a pointer to a pointer to int c.].
+- Line 3: to set a pointer point to another variable, use the *addressof* operator. In C++, that's ``&``.
+- Line 4: to actually use the memory you're referring to, you have to *dereference* a pointer with the dereference operator ``pass:[*]``footnote:[the dereference operator has *a lower* precedence than the access operator ``.``; if you're using a pointer to a ``struct`` or ``class``, then you need specify that you're dereferencing _first_: ``pass:[(*obj).member]``. There is a shorthand for this: ```pass:[obj->member]`` does the same thing.]
+- Line 5: you can dynamically allocate memory using the ``new`` and ``new[]`` operator. In this case, ``p`` became a pointer "pointing to an array"footnote:[it isn't, it's pointing a memory location which the _operating system_ treats as a _contiguous block of memory_. It can act like an array, but it needn't.] of length 55 (that was the value of ``a``).
+- Line 6: dereferencing ``p`` now refers to the "first element" of "the array".
+- Line 7: to access the next element, go 1 block after the location specified by ``p``. This is why arrays are zero-indexed.
+- Line 8: as a shorthand to the previous notation, you can use the *index* operator for quick pointer arithmetic.
+- Line 9: when you're done with memory, ``delete`` it.
+If you keep asking for more memory, then you'll run out sometime and you'll get a segfault.
+No one likes a segfault.
 
+[NOTE]
+====
+Notice that with pointer arithmetic we can pretty much add or subtract anything we want.
+If you really wanted, you can try accessing ``p[55]``, despite it being past the length of the array.
+
+Or ``p[-1]``.
+
+Be careful when using pointers and indicies in {cpp}; you'll need to keep track of everything yourself.
+====
 
 
 
