@@ -5,3 +5,71 @@ category: advanced
 lesson: 4
 ---
 = Standard I/O
+
+``std::cout`` and ``std::cin`` from the ``<iostream>`` library is bad.
+
+Now that you can use pointers, you should be using ``printf`` and ``scanf`` from the ``<stdio.h>`` library.footnote:[you don't have to, of course, but we'll be very disappointed.]
+
+== Why link:++http://www.cplusplus.com/reference/cstdio/++[``<stdio.h>``] is better
+
+The following two snippets of code do the same thingfootnote:[not exactly, the second one (with ``<stdio.h>``) actually works faster]:
+
+++++
+{% highlight cpp linenos %}
+    std::string name;
+    int age;
+    //...
+    std::cout << "Your name is " << name << " and you are " << age << " years old." << std::endl;
+{% endhighlight $}
+++++
+
+++++
+{% highlight cpp linenos %}
+    std::string name;
+    int age;
+    //...
+    printf("Your name is %s and you are %d years old.", name.c_str(), age);
+{% endhighlight $}
+++++
+
+Which looks easier to read?
+
+The following two snippets of code do the same thing:
+
+++++
+{% highlight cpp linenos %}
+#include <iostream>
+#include <iomanip>
+#include <string>
+    //...
+    std::string name[30];
+    int age[30];
+    //...
+    std::cout << std::left << std::setw(20) << " Name" << std::right << std::setw(5) << "Age" << std::endl;
+    for (int i = 0; i < 30; ++i)
+        std::cout << " " << std::left << std::setw(19) << name[i] << std::right << std::setw(5) << age[i] << std::endl;
+{% endhighlight $}
+++++
+
+++++
+{% highlight cpp linenos %}
+#include <stdio.h>
+#include <string>
+    std::string name[30];
+    int age[30];
+    //...
+    printf(" Name                 Age\n");
+    for (int i = 0; i < 30; ++i)
+        printf(" %19s%5d\n", name[i].c_str(), age[i]);
+{% endhighlight $}
+++++
+
+Which do you think took longer to reference and write?
+
+== ``<stdio.h>`` with ``std::string``
+
+Before scanning, ``reserve`` enough space in the string.
+
+Then just ``scanf("%s", str.data());``.
+
+To print, just ``printf("%s", str.c_str());``.
