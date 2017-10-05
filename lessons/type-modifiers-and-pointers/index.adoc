@@ -66,7 +66,7 @@ Consider what the following code does:
 
 ++++
 {% highlight cpp linenos %}
-	int i = 07 j = 5;
+    int i = 0, j = 5;
     int k = i + j;
 {% endhighlight %}
 ++++
@@ -108,9 +108,9 @@ There are many questions where you may be asked to compute something very large;
 
 ++++
 {% highlight cpp linenos %}
-    short int si;		//declare a short int (2-byte int) called si
-    long long ll;		//declare a long long (8-byte int) called ll
-    unsigned int ui;	//declare an unsigned int (4-byte u-int) called ui
+    short int si;       //declare a short int (2-byte int) called si
+    long long ll;       //declare a long long (8-byte int) called ll
+    unsigned int ui;    //declare an unsigned int (4-byte u-int) called ui
 {% endhighlight %}
 ++++
 
@@ -154,7 +154,7 @@ There's a few new operations you now need to know:
 
 ++++
 {% highlight cpp linenos %}
-	int a = 5;
+    int a = 5;
     int *p;
     p = &a;
     *p += 50;
@@ -163,6 +163,7 @@ There's a few new operations you now need to know:
     *(p+1) = 1;
     p[2] = 2;
     delete[] p;
+    p = NULL;
 {% endhighlight %}
 ++++
 
@@ -170,7 +171,7 @@ There's a few new operations you now need to know:
 This is a *type modifier*, applicable to _all_ typesfootnote:[a pointer is a type, and so you can have a pointer to a pointer. Or a pointer to a pointer to a pointer. Or a pointer to a pointer to a pointer to a pointer to a pointer... you get the point. You'd declare it as ``int pass:[*****] fifth_dimentional_pointer``.].
 Whitespace does not matter: ``int * p``, ``int* p``, ``int *p``, ``int*p`` all do the same thingfootnote:[you can declare different levels of pointers on the same line: ``pass:[int a, *b, **c]`` gives you an int a, a pointer to int b, and a pointer to a pointer to int c.].
 - Line 3: to set a pointer point to another variable, use the *addressof* operator. In C++, that's ``&``.
-- Line 4: to actually use the memory you're referring to, you have to *dereference* a pointer with the dereference operator ``pass:[*]``footnote:[the dereference operator has *a lower* precedence than the access operator ``.``; if you're using a pointer to a ``struct`` or ``class``, then you need specify that you're dereferencing _first_: ``pass:[(*obj).member]``. There is a shorthand for this: ```pass:[obj->member]`` does the same thing.]
+- Line 4: to actually use the memory you're referring to, you have to *dereference* a pointer with the dereference operator ``pass:[*]``footnote:[the dereference operator has *a lower* precedence than the access operator ``.``; if you're using a pointer to a ``struct`` or ``class``, then you need specify that you're dereferencing _first_: ``pass:[(*obj).member]``. There is a shorthand for this: ``pass:[obj->member]`` does the same thing.]
 - Line 5: you can dynamically allocate memory using the ``new`` and ``new[]`` operator. In this case, ``p`` became a pointer "pointing to an array"footnote:[it isn't, it's pointing a memory location which the _operating system_ treats as a _contiguous block of memory_. It can act like an array, but it needn't.] of length 55 (that was the value of ``a``).
 - Line 6: dereferencing ``p`` now refers to the "first element" of "the array".
 - Line 7: to access the next element, go 1 block after the location specified by ``p``. This is why arrays are zero-indexed.
@@ -178,7 +179,22 @@ Whitespace does not matter: ``int * p``, ``int* p``, ``int *p``, ``int*p`` all d
 - Line 9: when you're done with memory, ``delete`` it.
 If you keep asking for more memory, then you'll run out sometime and you'll get a segfault.
 No one likes a segfault.
+- Line 10: if a pointer isn't in use -- that is, it's not referring to anything useful -- then it should be assigned to ``NULL``.
+Attempting to dereference a null pointer will immediately crash your program, which will immediately tell you whether or not you've made an incorrect reference.
 
+[IMPORTANT]
+====
+Why use null pointers if they'll crash your program?
+The alternatives are likely worse.
+
+If you delete memory, but leave your pointer pointing to that deleted (no longer yours) memory, you'll have a *dangling pointer*.
+Some other process might then grab that memory.
+What if that other process is your operating system?
+
+What if you then write over that memory _that your operating system is using_?
+
+At least you can check if a pointer is null by checking equality: ``p == NULL``.
+====
 [NOTE]
 ====
 Notice that with pointer arithmetic we can pretty much add or subtract anything we want.
@@ -188,6 +204,60 @@ Or ``p[-1]``.
 
 Be careful when using pointers and indicies in {cpp}; you'll need to keep track of everything yourself.
 ====
+
+Because of how pointers can be used to dynamically refer to memory, they are extremely helpful.
+
+==== Memory and String Manipulation with link:++http://www.cplusplus.com/reference/cstring/++[``<string.h>``]
+
+Recall that in the link:++https://mss-csec.github.io/lessons/advanced/introduction-to-cpp/#strings++[last lesson] that I mentioned that you can use ``char[]`` for strings.
+Since ``char*``footnote:[pointer to ``char``] can _also_ be an array of ``char``, they can also be strings.
+In C, this is exactly what strings are: ``char*``.
+
+Memory and string manipulation in the ``<string.h>`` library work exclusively with pointers.
+The most important function you need to know is ``memset()``.
+
+If you'd like to really practice working with pointers, try writing your own versions of some of the functions in ``<string.h>``, starting with ``memset()`` and ``memcpy()``.
+
+==== Pointers in STL Functions
+
+Many functions in the standard library use pointers to denote the beginning and end of rangesfootnote:[if you have two pointers, ``l``, the "beginning" of the range, and ``r``, the end, then the range will _include_ ``l`` and _exclude_ ``r``. In interval notation, that's ``[l,r).``]:
+
+++++
+{% highlight cpp linenos %}
+    int arr[]={9,8,7,6,5,4,3,2,1,0}; //size 10
+    std::vector<int> varr(arr, arr+10);
+    std::sort(arr, arr+10);
+    std::cout << std::min_element(arr, arr+10);
+{% endhighlight %}
+++++
+
+- Line 2: you can construct an ``std::vector`` from an array with its link:++http://www.cplusplus.com/reference/vector/vector/vector/++[range constructor].
+- Line 3: you can sort a range with link:++http://www.cplusplus.com/reference/algorithm/sort/++[``std::sort``].
+- Line 4: you can find a minimum element with link:++http://www.cplusplus.com/reference/algorithm/min_element/++[``std::min_element``].
+
+==== Multidimensional Arrays
+
+In many languages, you can have multidimensional arrays.
+In {cpp}, we don't worry about classifying what arrays are single-dimensional and what are multidimensional, because a two-dimensional array is just an array of arraysfootnote:[actually, "multidimensional arrays" as a specific type _do_ have some optimizations over "arrays of arrays", but they aren't particularly important here.].
+A three-dimensional array is just an array of arrays of arrays.
+
+++++
+{% highlight cpp linenos %}
+	//make a 10x10 multiplication table
+    int **two_d_arr = new int*[10];
+    for (int i = 0; i < 10; ++i)
+    {
+        two_d_arr[i] = new int[10];
+        for (int j = 0; j < 10; ++j)
+            two_d_arr[i][j] = i * j;
+    }
+{% endhighlight %}
+++++
+
+Line 7 is equivalent to ``pass:[*(*(two_d_arr+i)+j) = i * j;]``
+
+
+
 
 
 
