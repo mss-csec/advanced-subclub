@@ -20,7 +20,7 @@ The following two snippets of code do the same thingfootnote:[not exactly, the s
     int age;
     //...
     std::cout << "Your name is " << name << " and you are " << age << " years old." << std::endl;
-{% endhighlight $}
+{% endhighlight %}
 ++++
 
 ++++
@@ -48,7 +48,7 @@ The following two snippets of code do the same thing:
     std::cout << std::left << std::setw(20) << " Name" << std::right << std::setw(5) << "Age" << std::endl;
     for (int i = 0; i < 30; ++i)
         std::cout << " " << std::left << std::setw(19) << name[i] << std::right << std::setw(5) << age[i] << std::endl;
-{% endhighlight $}
+{% endhighlight %}
 ++++
 
 ++++
