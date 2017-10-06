@@ -2,10 +2,11 @@
 layout: landing
 category: advanced
 schedule:
-  setting-things-up: 31 Dec 1969
-  introduction-to-cpp:  1 Jan 1970
-  type-modifiers-and-pointers: 2 Jan 1970
-  standard-io: 3 Jan 1970
+  setting-things-up: 6 Oct 2017
+  introduction-to-cpp:  6 Oct 2017
+  type-modifiers-and-pointers: 13 Oct 2017
+  standard-io: 13 Oct 2017
+  introduction-to-algorithms: 27 Oct 2017
 ---
 = Advanced
 
