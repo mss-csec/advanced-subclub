@@ -29,7 +29,7 @@ The following two snippets of code do the same thingfootnote:[not exactly, the s
     int age;
     //...
     printf("Your name is %s and you are %d years old.", name.c_str(), age);
-{% endhighlight $}
+{% endhighlight %}
 ++++
 
 Which looks easier to read?
@@ -61,7 +61,7 @@ The following two snippets of code do the same thing:
     printf(" Name                 Age\n");
     for (int i = 0; i < 30; ++i)
         printf(" %19s%5d\n", name[i].c_str(), age[i]);
-{% endhighlight $}
+{% endhighlight %}
 ++++
 
 Which do you think took longer to reference and write?
