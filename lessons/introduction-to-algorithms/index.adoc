@@ -5,3 +5,49 @@ category: advanced
 lesson: 5
 ---
 = Introduction to Algorithms
+
+al·go·rithm:: n. a process or set of rules to be followed in calculations or other problem-solving operations
+
+'''
+
+When we make a program, all we are doing is writing a set of instructions for computer to follow.
+These instructions, of course, must be perfect -- they have to be simple enough for a computer to follow, since computers only know so much and can't interpret a programmer's intent.
+
+With the introduction of modular programming, many oft-repeated calculations could be encapsulated into a function, and later these functions into libraries.
+Standard yet complicated procedures -- like getting an integral inputfootnote:[``scanf()`` or ``std::cin``] -- could be implemented with a simple function call.
+
+A simple program which takes two integral values and spits out its sum could be simplified to two variable decalarations, and two lines of code.
+It's juat a simple *algorithm*.
+
+Most algorithms, however, aren't so simple. In Computer Science, algorithms are about somehow manipulating memory to solve computational problems in a timely manner -- computers, after all, only know how to manipulate memory.
+
+== Time Complexity: Measuring an Algorithm
+
+It certainly wouldn't be a stretch to say that some algorithms are better than others.
+If, for example, you had the following problem:
+[quote, problem statement]
+____
+Given a sorted (least-to-greatest) array of size ``n``, find the index of a value ``m``.
+If it does not exist, result ``-1``.
+____
+
+One way would be to iterate along the list, checking each and every element to see if it's the desired value.
+This is called the *linear search*.
+
+Another way, commonly called the *binary search*, leverages the fact that the array is sorted.
+If one starts from the middle, they can easily cut the problem to half its size, as the desired value is on one side or the other and figuring out which side it's on relies on a simple comparison.
+
+Clearly, both will work -- both algorithms will eventually find the answer.
+But you can also make the observation that the binary search is _better_.
+It's not because it's more sophisticated, but rather that it's faster.
+If you had a 1024-element array, you can expect the following number of iterations for each algorithm:
+[cols="1,2,2",options="header"]
+|=======
+| |Linear Search |Binary Search
+|Best Case |1 iteration (once in 1024) |1 iteration (once in 1024)
+|Average Case |512 iterations | 9 iterations
+|Worst Case |1024 iterations (once in 1024) |10 iterations (once in 2)
+|=======
+
+So, is binary search fifty times faster than linear search?
+Well, not exactly
