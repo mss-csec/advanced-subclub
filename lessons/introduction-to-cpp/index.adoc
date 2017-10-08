@@ -13,7 +13,7 @@ The Advanced Course begins with the assumption that you are familiar and comfort
 ====
 This course assumes you are familiar with every concept in this lesson, perhaps with the sole exception of Object Oriented Programming.
 
-If you are unable to solve problems such as <give example here>, then it would probably be wise to take the Beginners' course instead.
+If you are unable to solve problems such as link:++http://wcipeg.com/problem/ccc16s2++[CCC16S2: Tandem Bicycle], then it would probably be wise to take the Beginners' course instead.
 ====
 
 The purpose of this lesson is to familiarize you with (or to provide you a review of) C++ syntax, which is this course's language of choice.

@@ -6,7 +6,7 @@ lesson: 5
 ---
 = Introduction to Algorithms
 
-al·go·rithm:: n. a process or set of rules to be followed in calculations or other problem-solving operations
+algorithm:: _n._ a process or set of rules to be followed in calculations or other problem-solving operations
 
 '''
 

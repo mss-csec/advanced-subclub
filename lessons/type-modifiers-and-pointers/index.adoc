@@ -9,7 +9,7 @@ lesson: 3
 You were probably taught that "variables hold a value," and that "different types hold different types of values."
 
 The first statement is correct, but doesn't show the full picture of what a variable is.
-The second statment is wrong.
+The second statement is wrong.
 
 == What is a variable?
 

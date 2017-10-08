@@ -10,6 +10,8 @@ lesson: 4
 
 Now that you can use pointers, you should be using ``printf`` and ``scanf`` from the ``<stdio.h>`` library.footnote:[you don't have to, of course, but we'll be very disappointed.]
 
+Practice this by redoing some WCIPeg questions.
+
 == Why link:++http://www.cplusplus.com/reference/cstdio/++[``<stdio.h>``] is better
 
 The following two snippets of code do the same thingfootnote:[not exactly, the second one (with ``<stdio.h>``) actually works faster]:
@@ -55,6 +57,7 @@ The following two snippets of code do the same thing:
 {% highlight cpp linenos %}
 #include <stdio.h>
 #include <string>
+    //...
     std::string name[30];
     int age[30];
     //...

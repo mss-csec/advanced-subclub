@@ -10,21 +10,20 @@ There are a few things which we will be using often in this course; it is impera
 
 Please ensure that the following are ready to use by the first lesson:
 
-* An IDE or compiler for your language of choice
+* An IDE and compiler for your language of choice
 * A link:http://wcipeg.com[wcipeg] account, for challenging practice
-* A link:https://www.hackerrank.com/[HackerRank] account, for practice for every lesson
 
-The latter two points are rather trivial; the rest of this "lesson" regards the setup of an IDE for {cpp}.
+The latter point is rather trivial; the rest of this "lesson" regards the setup of an IDE for {cpp}.
 
 == An IDE for {cpp}
 
-*Code::Blocks* is a nice, minimalistic cross-platform IDE for C++. It is very useful for small programs \-- contest submissions \-- and, with some extra work, will support large projects.
+*Code::Blocks* is a nice, minimalistic cross-platform IDE for C++. It is very useful for small programs -- contest submissions -- and, with some extra work, will support large projects.
 
 It can be downloaded link:http://www.codeblocks.org/downloads/26[here].
 
 [NOTE]
 ====
-The Mac OS-X version of Code::Blocks is outdated.
+The Mac/OS-X version of Code::Blocks is outdated.
 
 You may wish to use a link:http://cpp.sh[{cpp} Shell] instead.
 ====
