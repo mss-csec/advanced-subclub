@@ -50,4 +50,37 @@ If you had a 1024-element array, you can expect the following number of iteratio
 |=======
 
 So, is binary search fifty times faster than linear search?
-Well, not exactly
+Well, not exactly.
+
+First of all, binary search requires more time per iteration, as it does at least one addition comparison. Secondly, binary search is less efficient over the cachefootnote:[linear search only requires switching out the cache every few (eight or so) iterations; binary search needs to switch it out almost every iteration].
+
+But most importantly, binary search uses an entirely different approach from linear search, and it grows differently.
+If you double the size of your input, linear search will take twice as many iterations on average and in the worst case.
+Binary search, on the other hand, will take _one_ more iteration.
+
+They scale differently, and when it comes to writing good algorithms, that's what matters.
+
+Efficient scaling _really_ matters.
+[quote, "CCC15S4: Convex Hull, input specifications", (emphasis added)]
+____
+The first line of input contains three integers K, N and M (1 &#8804; K &#8804; 200; 2 &#8804; N &#8804; *2000*; 1 &#8804; M &#8804; *10000*), each separated by one space.
+
+The next M lines each contain 4 integers a~i~ b~i~ t~i~ h~i~ (1 &#8804; a~i~, b~i~ &#8804; N; 1 &#8804; t~i~ &#8804; *10^5^*; 0 &#8804; h~i~ &#8804; 200), each separated by one space. The i-th line in this set of M lines describes the i-th sea route (which runs from island a~i~ to island b~i~, takes t~i~ minutes and wears down the ship's hull by h~i~ centimetres). Notice that a~i~ &#8800; b~i~ (that is, the ends of a sea route are distinct islands).
+____
+
+=== Asymptotic Analysis
+
+How do we score an algorithm quantitatively?
+Obviously, we don't want to express the "time" an algorithm would take in comparison to other algorithms, because those numbers are useless.
+
+Instead, we should try to show how it scales.
+To do that, we use a technique called *asymptotic analysis*.
+Formally, we do that by looking at what type of mathematical function best represents the running time of an algorithm.
+
+Linear search takes linear time, so it scales linearly.
+If you were to express this as a mathematical function, where \(T\) is time, \(n\) is the input size, and \(c\) is some proportionality constant, you'd have \(T=cn\).
+
+With binary search, you may notice that it scales link:++https://en.wikipedia.org/wiki/Logarithm++[_logarithmically_].
+For binary search, you'd express that with \(T=c\log{n}\).
+
+Now, as we've said before, 
