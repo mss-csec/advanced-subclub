@@ -10,7 +10,7 @@ lesson: 4
 
 Now that you can use pointers, you should be using ``printf`` and ``scanf`` from the ``<stdio.h>`` library.footnote:[you don't have to, of course, but we'll be very disappointed.]
 
-Practice this by redoing some WCIPeg questions.
+Practice this by redoing some WCIPEG questions.
 
 == Why link:++http://www.cplusplus.com/reference/cstdio/++[``<stdio.h>``] is better
 

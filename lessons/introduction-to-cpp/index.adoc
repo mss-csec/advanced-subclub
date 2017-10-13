@@ -376,7 +376,7 @@ This snippet of code will output ``09`` and then some garbage (there are no spac
 ==== Variable-size Arrays: ``std::vector``
 
 If you need an array type but don't know how many elements you need, you can use an ``std::vector`` from ``<vector>``.
-``std::vector``s begin with zero size and zero capacity, but increase as you add more elements with ``std::vector<T>::push_back(T)``, create more elements with std::vector<T>::emplace_back(T())``, or reserve space for elements with ``std::vector<T>::reserve(int)``.
+``std::vector``s begin with zero size and zero capacity, but increase as you add more elements with ``std::vector<T>::push_back(T)``, create more elements with ``std::vector<T>::emplace_back(T())``, or reserve space for elements with ``std::vector<T>::reserve(int)``.
 The increase in size and capacity is done automatically when needed.
 
 Elements can also be removed off the back with ``std::vector<T>::pop_back()``.
