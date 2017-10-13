@@ -78,9 +78,32 @@ To do that, we use a technique called *asymptotic analysis*.
 Formally, we do that by looking at what type of mathematical function best represents the running time of an algorithm.
 
 Linear search takes linear time, so it scales linearly.
-If you were to express this as a mathematical function, where \(T\) is time, \(n\) is the input size, and \(c\) is some proportionality constant, you'd have \(T=cn\).
+If you were to express this as a mathematical function, where \(T\) is time, \(n\) is the input size, and \(c\) is some proportionality coefficient, you'd have \(T=cn\).
 
 With binary search, you may notice that it scales link:++https://en.wikipedia.org/wiki/Logarithm++[_logarithmically_].
 For binary search, you'd express that with \(T=c\log{n}\).
 
-Now, as we've said before, 
+There's a few problems with this approach, though.
+That coefficient \(c\) varies from environment to environment, so it's not a very useful measure.
+And the time isn't _always_ proportional to some function on the input size, as most algorithms for most problems can end earlier than the worst- or average case.
+
+To deal with this, we developed link:++https://en.wikipedia.org/wiki/Big_O_notation++[*big-O notation*].
+
+Formally,
+[quote, Wikipedia (paraphrased), the free encyclopedia]
+____
+A function \(f(x)\) is \(O(g(x))\),
+
+that is, \(f(x)=O(g(x))\text{ as }x\rightarrow\infty\) if and only if
+
+\(pass:[|f(x)|<|Mg(x)|]\) for some constant \(M\) and for all \(x\) where \(x \gg 0\).
+____
+
+Essentially, what this means is that \(g(x)\) is the _upper bound_ of the _growth_ \(f(x)\).
+
+Using this notation, we can say that linear search is \(O(n)\) and binary search \(O(\log{n})\) for \(n\), the size of our input array.
+
+== Developing Algorithms
+
+
+
