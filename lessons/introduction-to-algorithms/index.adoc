@@ -118,7 +118,7 @@ ____
 Given an unsorted array stem:[n] elements and an operator stem:[\lt] which orders these elements, sort the array from least to greatest. 
 ____
 
-image:++https://upload.wikimedia.org/wikipedia/commons/b/b0/Selection_sort_animation.gif++[Selection Sort,200,200,role="right"] The brute-force approach is rather obvious: take the minimum element from the unsorted array, and push that onto the end of the sorted array you're constructing.
+image:++https://upload.wikimedia.org/wikipedia/commons/f/f6/Selection_Sort_Animation.gif++[Selection Sort,200,200,role="right"] The brute-force approach is rather obvious: take the minimum element from the unsorted array, and push that onto the end of the sorted array you're constructing.
 This is easily achieved in-placefootnote:[this means that you're not using any extra memory, and all the sorting occurs in the array itself; your memory usage is stem:[O(1)].] by searching one-by-one through the unsorted array, and then swapping that minimum element with the _first_ element of the unsorted array to construct the sorted array.
 
 Our first sort is based on _selecting_ elements, so we'll call it link:++https://en.wikipedia.org/wiki/Selection_sort++[*selection sort*].
@@ -134,7 +134,7 @@ You may notice that one of the worst problems with selection sort is that it's n
 When the input array is already nearly sorted, it won't get any faster.
 Instead of iteratively searching, we could try iteratively _moving_ elements closer to where they should be.
 
-image:++https://upload.wikimedia.org/wikipedia/commons/3/37/Bubble_sort_animation.gif++[Bubble Sort,200,200,role="right"] We'll still move along the array one-by-one, but this time for every comparison we'll swap if appropriate.
+image:++https://upload.wikimedia.org/wikipedia/commons/2/2d/Bubble_Sort_Animation.gif++[Bubble Sort,200,200,role="right"] We'll still move along the array one-by-one, but this time for every comparison we'll swap if appropriate.
 You'll notice that it's much faster than selection sort when the array's already nearly sorted.
 
 This sort is based on _bubbling_ elements up, one at a time, so we'll call it link:++https://en.wikipedia.org/wiki/Bubble_sort++[*bubble sort*].
@@ -145,6 +145,22 @@ And in every pass, we make stem:[n] comparisons and stem:[O(n)] swapsfootnote:[t
 
 Let's take a look at selection sort again.
 Selection sort's main bottleneck is finding the answer to "where do we take the next element out?", which requires a search among all unordered elements.
-If we change that question to "where do we _put_ the next element _in_?", then we can rid ourselves of some of the 
+If we change that question to "where do we _put_ the next element _in_?", then we can leverage the fact that we'll be inserting into a _sorted_ list, and finding where it should go doesn't require a search among _all_ unordered elements.
+We can just insert the next element of the unsorted array.
+
+image:++https://upload.wikimedia.org/wikipedia/commons/a/ad/Insertion_Sort_Animation.gif++[Insertion Sort, 200,200,role="right"]
+Before we go crazy implementing a binary search to figure out the insertion site, consider that to insert an element requires shifting everything after it once to the right.
+We may was well just add the element to the end, and _bubble it down_ to the right position.
+
+Since we came up with this sort from the idea of _inserting_, we'll call this link:++https://en.wikipedia.org/wiki/Insertion_sort++[*insertion sort*].
+This one really is faster than selection sort.
+
+For each of the stem:[n] elements we have to add to the sorted array, we make stem:[O(n)] comparisons and swaps for an overall time complexity of, once again, stem:[O(n^2)].
+But this time, it really is faster.
+
+If we know the largest size an element can be away from its proper position, there's another way to write the time complexity: for an input of size stem:[n] where the maximal displacement is stem:[k], for each stem:[n] elements to add, we make stem:[O(k)] comparisons and swaps for an overall time complexity of stem:[O(nk)].
+Since stem:[k\leq n], it's sure to be faster than just stem:[O(n^2)].
+
+
 
 
