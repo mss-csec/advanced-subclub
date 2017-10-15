@@ -161,6 +161,13 @@ But this time, it really is faster.
 If we know the largest size an element can be away from its proper position, there's another way to write the time complexity: for an input of size stem:[n] where the maximal displacement is stem:[k], for each stem:[n] elements to add, we make stem:[O(k)] comparisons and swaps for an overall time complexity of stem:[O(nk)].
 Since stem:[k\leq n], it's sure to be faster than just stem:[O(n^2)].
 
+But our overall time complexity is still just stem:[O(n^2)].
+Can we do better than this baseline?
 
+Notice what slows down insertion sort: when elements are far away from their supposed position, they're inserted slowly.
+But it's fast for both small arrays and arrays with low displacement.
+Is it perhaps possible to first do some smaller sorts on the array to lower the average displacements first, before we run insertion sort on the entire thing?
+
+If we run insertion sort on subsets of the array -- say, every stem:[g] elements -- first, then we'll be able to lower the stem:[k]-values for every subsequent pass.
 
 
