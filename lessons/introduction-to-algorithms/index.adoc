@@ -37,6 +37,8 @@ This is called the *linear search*.
 Another way, commonly called the *binary search*, leverages the fact that the array is sorted.
 If one starts from the middle, they can easily cut the problem to half its size, as the desired value is on one side or the other and figuring out which side it's on relies on a simple comparison.
 
+image::https://www.codingame.com/servlet/fileservlet?id=7769264647488[Visualization of binary and linear search]
+
 Clearly, both will work -- both algorithms will eventually find the answer.
 But you can also make the observation that the binary search is _better_.
 It's not because it's more sophisticated, but rather that it's faster.
@@ -86,6 +88,7 @@ For binary search, you'd express that with \(T=c\log{n}\).
 There's a few problems with this approach, though.
 That coefficient \(c\) varies from environment to environment, so it's not a very useful measure.
 And the time isn't _always_ proportional to some function on the input size, as most algorithms for most problems can end earlier than the worst- or average case.
+We just need to focus on _scaling_.
 
 To deal with this, we developed link:++https://en.wikipedia.org/wiki/Big_O_notation++[*big-O notation*].
 
@@ -103,7 +106,45 @@ Essentially, what this means is that \(g(x)\) is the _upper bound_ of the _growt
 
 Using this notation, we can say that linear search is \(O(n)\) and binary search \(O(\log{n})\) for \(n\), the size of our input array.
 
+This might seem rather alien and unusual.
+In the next section, while we discuss how we can develop algorithms, we'll also do some more work with time complexity.
+
 == Developing Algorithms
 
+Now that you're acquainted with terms and with notation, let's discuss solving a common algorithmfootnote:[this section explains many common sorting algorithms; to see detailed visualizations and analysis, go link:++https://www.toptal.com/developers/sorting-algorithms++[here].].
+
+[quote, Problem Statement]
+____
+Given an unsorted array stem:[n] elements and an operator stem:[\lt] which orders these elements, sort the array from least to greatest. 
+____
+
+image:++https://upload.wikimedia.org/wikipedia/commons/b/b0/Selection_sort_animation.gif++[Selection Sort,200,200,role="right"] The brute-force approach is rather obvious: take the minimum element from the unsorted array, and push that onto the end of the sorted array you're constructing.
+This is easily achieved in-placefootnote:[this means that you're not using any extra memory, and all the sorting occurs in the array itself; your memory usage is stem:[O(1)].] by searching one-by-one through the unsorted array, and then swapping that minimum element with the _first_ element of the unsorted array to construct the sorted array.
+
+Our first sort is based on _selecting_ elements, so we'll call it link:++https://en.wikipedia.org/wiki/Selection_sort++[*selection sort*].
+
+For each of the stem:[n] elements we have to add to construct the sorted array, we're making up to stem:[n-1] comparisons.
+To be precise, we make exactly stem:[\frac{1}{2}n(n+1)] comparisons (and stem:[n-1] swaps).
+As such, selection sort grows quadratically, and its time complexity is stem:[O(n^2)].
+
+Clearly, it'll be pretty slow for large inputs.
+Is there a better way?
+
+You may notice that one of the worst problems with selection sort is that it's not *adaptable*: it does blind searches and nothing else.
+When the input array is already nearly sorted, it won't get any faster.
+Instead of iteratively searching, we could try iteratively _moving_ elements closer to where they should be.
+
+image:++https://upload.wikimedia.org/wikipedia/commons/3/37/Bubble_sort_animation.gif++[Bubble Sort,200,200,role="right"] We'll still move along the array one-by-one, but this time for every comparison we'll swap if appropriate.
+You'll notice that it's much faster than selection sort when the array's already nearly sorted.
+
+This sort is based on _bubbling_ elements up, one at a time, so we'll call it link:++https://en.wikipedia.org/wiki/Bubble_sort++[*bubble sort*].
+It turns out, though, that it's usually _worse_ than selection sortfootnote:[70% as fast in Java].
+
+For every _pass_ through the array, one more element is guaranteed to be sorted, so we need to make stem:[n] passes through the array.
+And in every pass, we make stem:[n] comparisons and stem:[O(n)] swapsfootnote:[that simply means _up to_ stem:[n]; it's just big-O notation]. That makes for an overall time complexity of... stem:[O(n^2)]footnote:[it's still slower than selection sort because time complexity _ignores_ the "hidden constant multiple": it grows in the same manner, but bubble sort still takes more overhead].
+
+Let's take a look at selection sort again.
+Selection sort's main bottleneck is finding the answer to "where do we take the next element out?", which requires a search among all unordered elements.
+If we change that question to "where do we _put_ the next element _in_?", then we can rid ourselves of some of the 
 
 
