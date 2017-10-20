@@ -168,6 +168,19 @@ Notice what slows down insertion sort: when elements are far away from their sup
 But it's fast for both small arrays and arrays with low displacement.
 Is it perhaps possible to first do some smaller sorts on the array to lower the average displacements first, before we run insertion sort on the entire thing?
 
-If we run insertion sort on subsets of the array -- say, every stem:[g] elements -- first, then we'll be able to lower the stem:[k]-values for every subsequent pass.
+image:++https://camo.githubusercontent.com/440d6f277e5aa7be46fb5cf11f982bf20efc155e/68747470733a2f2f73696d6f6e77616c64686572722e6769746875622e696f2f476f6c616e67536f7274696e6756697375616c697a6174696f6e2f736f72745f7368656c6c2e676966++[Shell Sort, 200, 200, role="right"]If we run insertion sort on subsets of the array -- say, every stem:[g] elements -- first, then we'll be able to lower the stem:[k]-values if we then do a normal insertion sort on the array.
+If we, for example, do it every four elements (for every group of every four elements), it'll guarantee that the stem:[k]-value of a subsequent insertion sort is, at most, stem:[n-4]; and likely an average displacement of stem:[\frac{n}{4}].
+
+If it's too large for a 4-element gap first, then we can also do _another_ similar pass before it, with a larger gap.
+And if stem:[n] is _still_ too large, we can just keep adding more passes with larger gaps before it.
+
+This method of sorting was first published by Donald Shell in 1959, and so it is aptly named link:++https://en.wikipedia.org/wiki/Shellsort++[*Shell sort*].
+Its time complexity is a bit complicatedfootnote:[that's an understatement] to calculate, and depends specifically on the gap sequences (the "let's only do every stem:[g] elements" thing).
+The best gap sequence runs in stem:[O(n\log^2n)]footnote:[three-smooth numbers: stem:[1,2,3,4,6,8,9,12...]] but is impractical.
+In practice, it runs in stem:[O(n^{\frac{4}{3}})]footnote:[Sedgewick's sequences: stem:[1,8,23,77,281...] or stem:[1,5,19,41,109]] or stem:[\Theta(n^{\frac{3}{2}})]footnote:[the stem:[\Theta] is for big-Theta notation, which denotes _average_ time complexity]footnote:[Knuth's Sequence: stem:[1,4,13,40,121,364,...]]
+
+By analyzing insertion sort, we were able to come up with Shell sort -- which has finally managed to improve our time complexity.
+
+But can we do better?
 
 
