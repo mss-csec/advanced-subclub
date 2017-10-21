@@ -118,7 +118,7 @@ ____
 Given an unsorted array stem:[n] elements and an operator stem:[\lt] which orders these elements, sort the array from least to greatest. 
 ____
 
-image:++https://upload.wikimedia.org/wikipedia/commons/f/f6/Selection_Sort_Animation.gif++[Selection Sort,200,200,role="right"] The brute-force approach is rather obvious: take the minimum element from the unsorted array, and push that onto the end of the sorted array you're constructing.
+image:++selection.gif++[Selection Sort,200,200,role="right"] The brute-force approach is rather obvious: take the minimum element from the unsorted array, and push that onto the end of the sorted array you're constructing.
 This is easily achieved in-placefootnote:[this means that you're not using any extra memory, and all the sorting occurs in the array itself; your memory usage is stem:[O(1)].] by searching one-by-one through the unsorted array, and then swapping that minimum element with the _first_ element of the unsorted array to construct the sorted array.
 
 Our first sort is based on _selecting_ elements, so we'll call it link:++https://en.wikipedia.org/wiki/Selection_sort++[*selection sort*].
@@ -134,7 +134,7 @@ You may notice that one of the worst problems with selection sort is that it's n
 When the input array is already nearly sorted, it won't get any faster.
 Instead of iteratively searching, we could try iteratively _moving_ elements closer to where they should be.
 
-image:++https://upload.wikimedia.org/wikipedia/commons/2/2d/Bubble_Sort_Animation.gif++[Bubble Sort,200,200,role="right"] We'll still move along the array one-by-one, but this time for every comparison we'll swap if appropriate.
+image:++bubble.gif++[Bubble Sort,200,200,role="right"] We'll still move along the array one-by-one, but this time for every comparison we'll swap if appropriate.
 You'll notice that it's much faster than selection sort when the array's already nearly sorted.
 
 This sort is based on _bubbling_ elements up, one at a time, so we'll call it link:++https://en.wikipedia.org/wiki/Bubble_sort++[*bubble sort*].
@@ -148,7 +148,7 @@ Selection sort's main bottleneck is finding the answer to "where do we take the 
 If we change that question to "where do we _put_ the next element _in_?", then we can leverage the fact that we'll be inserting into a _sorted_ list, and finding where it should go doesn't require a search among _all_ unordered elements.
 We can just insert the next element of the unsorted array.
 
-image:++https://upload.wikimedia.org/wikipedia/commons/a/ad/Insertion_Sort_Animation.gif++[Insertion Sort, 200,200,role="right"]
+image:++insertion.gif++[Insertion Sort, 200,200,role="right"]
 Before we go crazy implementing a binary search to figure out the insertion site, consider that to insert an element requires shifting everything after it once to the right.
 We may was well just add the element to the end, and _bubble it down_ to the right position.
 
@@ -168,7 +168,7 @@ Notice what slows down insertion sort: when elements are far away from their sup
 But it's fast for both small arrays and arrays with low displacement.
 Is it perhaps possible to first do some smaller sorts on the array to lower the average displacements first, before we run insertion sort on the entire thing?
 
-image:++https://camo.githubusercontent.com/440d6f277e5aa7be46fb5cf11f982bf20efc155e/68747470733a2f2f73696d6f6e77616c64686572722e6769746875622e696f2f476f6c616e67536f7274696e6756697375616c697a6174696f6e2f736f72745f7368656c6c2e676966++[Shell Sort, 200, 200, role="right"]If we run insertion sort on subsets of the array -- say, every stem:[g] elements -- first, then we'll be able to lower the stem:[k]-values if we then do a normal insertion sort on the array.
+image:++shell.gif++[Shell Sort, 200, 200, role="right"]If we run insertion sort on subsets of the array -- say, every stem:[g] elements -- first, then we'll be able to lower the stem:[k]-values if we then do a normal insertion sort on the array.
 If we, for example, do it every four elements (for every group of every four elements), it'll guarantee that the stem:[k]-value of a subsequent insertion sort is, at most, stem:[n-4]; and likely an average displacement of stem:[\frac{n}{4}].
 
 If it's too large for a 4-element gap first, then we can also do _another_ similar pass before it, with a larger gap.
@@ -183,4 +183,27 @@ By analyzing insertion sort, we were able to come up with Shell sort -- which ha
 
 But can we do better?
 
+image:++merge.gif++[Merge Sort, 200, role="right"]There's another problem dealing with sorted arrays: *merging* two sorted arrays together.
+It's not a difficult problem, and the solution is quite trivial -- try to figure it out yourself; footnote 13 has the answerfootnote:[first, construct a new list; since both are sorted, the least element, which is the one we wish to push onto the new list, is either the first element of the first array or the first element of the second array; by choosing the minimum of two elements each time, we obtain a trivial stem:[O(n)] algorithm].
+
+So if we get two sorted arrays, we can merge them into a larger sorted array; then that means that if we get one _unsorted_ array, we could split it in two, sort both sides, and then merge it back.
+We'll call this link:++https://en.wikipedia.org/wiki/Merge_sort++[*merge sort*] since we're exploiting merging behaviours.
+
+How do we sort either side?
+Well, with merge sort!
+
+But then when do we stop splitting the array?
+When it's not possible: when there's just one element left.
+
+But doesn't that leave unsorted lists?
+Well, not really: a single-element array _is_ sorted.
+
+A simple idea can come a long way.
+Merge sort has a time complexity of stem:[\Theta(n\log{n})]: at every level of recursionfootnote:[the process described above was recursive, and each *level of recursion* is just how many splits had been performed], an entire pass is done with stem:[\Theta(n)] comparisons, and recursive depth is stem:[\Theta(\log{n})].
+
+It turns out that according to classical mechanicsfootnote:[it _may_ be possible to achieve faster sorts with quantum computers], stem:[\Theta(n\log{n})] is the absolute fastest we can ever sort thingsfootnote:[link:++https://www.quora.com/Why-is-the-%CE%A9-n-log-n-lower-bound-on-comparison-sorting-algorithms-called-the-information-theoretic-limit/answer/Neal-Wu++[a short, intuitive proof]].
+But that doesn't mean that we're done with merge sort.
+You may have noticed, for example, that it isn't adaptivefootnote:[link:++https://en.wikipedia.org/wiki/Timsort++[Timsort] is a variation on merge sort, where natural runs in the input are exploited so the recursion is shallower].
+You may also have noticed that it's the first sort that uses extra memory: specifically, it uses stem:[O(n)] extra memory.
+Can we write an adaptive, in-place sort that runs in stem:[O(n\log{n})] time?
 
