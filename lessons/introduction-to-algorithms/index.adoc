@@ -207,3 +207,20 @@ You may have noticed, for example, that it isn't adaptivefootnote:[link:++https:
 You may also have noticed that it's the first sort that uses extra memory: specifically, it uses stem:[O(n)] extra memory.
 Can we write an adaptive, in-place sort that runs in stem:[O(n\log{n})] time?
 
+image:++quick.gif++[Quicksort, 200, 200, role="right"]Let's use the same divide-and-conquer idea from merge sort, as well as the idea of first approximating destinations from Shell sort.
+If we can somehow divide the array in half, and then move everything on the lower end to the left and everything on the upper end to right, then we've done everything we need to set up another recursive sort.
+
+To do this, we can choose a *pivot* from the array; then, going from both ends, find anything out-of-place to swap.
+
+Like with merge sort, for every recursive level there will be stem:[O(n)] comparisons and swaps, and -- if you choose the pivots wellfootnote:[if you don't, it's stem:[O(n)] and you get stem:[O(n^2)]] -- there'll be stem:[\Theta(\log{n})] recursive depth.
+It's in-place, adaptive, easy on the cache, and uses little overhead.
+It's quick.
+
+So, naturally, we call it link:++https://en.wikipedia.org/wiki/Quicksort++[*quicksort*].
+
+---
+
+[quote, Phil Karlton]
+____
+There are only two hard problems in computer science: cache invalidation, naming things, and off-by-one errors.
+____
