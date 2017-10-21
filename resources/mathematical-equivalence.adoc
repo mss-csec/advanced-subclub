@@ -1,0 +1,83 @@
+---
+layout: resource
+category: advanced
+---
+
+= Mathematical Equivalence
+
+Different algorithms achieve the same goal in different ways.
+Linear search and binary search do the same thing in different ways.
+The various sorts do the same thing in different ways.
+
+_Mathematically_, they are equivalent, as they are functions with the same behaviour.
+But _computationally_, they are very different.
+
+[quote, the Two Trains Puzzle]
+____
+Two trains are on the same track a distance stem:[100\text{ km}] apart, heading towards one another each a speed of stem:[50\text{ km}\cdot\text{h}^{-1}].
+A fly, staritng out at the front of one train, flies towards the other at a speed of stem:[75\text{km}\cdot\text{h}^{-1}].
+Upon reaching the other train, the fly turns around and continues towards the first train.
+How many kilometers does the fly travel before being squashed in the collision of the two trains?
+____
+
+image:++http://mathworld.wolfram.com/images/gifs/TwoTrains.gif++[Visualization of the Two Trains Puzzle]
+
+You can solve this in many ways.
+The simple, brute-force method is as follows:
+
+Let stem:[t] be the time elapsed.
+The fly reaches the second train whenfootnote:[left side is location of the fly from its initial point at time stem:[t]; right side is location of the second train from the fly'se inital point at time stem:[t]]
+[stem]
+++++
+75t=100-50t
+++++
+or stem:[t_1=\frac{4}{5}\text{ h}], at which point it has traveled a distance of stem:[d_1=75\text{ km}].
+It proceeds to turn around and reaches the first train again when
+[stem]
+++++
+60-75t=40+50t
+++++
+or stem:[t_2=\frac{4}{25}\text{ h}].
+Continuing, we will obtain the series
+[stem]
+++++
+75\sum_{n=1}^{\infty}\frac{4}{5^n}
+++++
+which converges to stem:[75\text{ km}].
+
+Alternatively, we can note that the fly will be flying until the to trains meet, which they will do one hour into the scenario.
+As such, the fly will cover stem:[75\text{ km}].
+
+Both solutions are equally valid.
+They're mathematically equivalent.
+
+But clearly, the second option is superior when it comes to computation.
+Why come up with, and evaluate, an infinite series if you could come up with the solution that only requires two simple multiplications?
+
+Writing faster algorithms -- and optimization in general -- is really about being able to find and exploit _mathematically_ equivalent processes that *aren't* _computationally_ equivalent.
+
+There's no really good way to train this other than to practice and to overthink problems; but for now, try optimizing the following code snippets:
+
+[source, role="linenos"]
+----
+if (grade > 100 || grade < 0)
+    return "X";
+if (grade >= 80 && grade <= 100)
+    return "A";
+if (grade >= 70 && grade < 80)
+    return "B";
+if (grade >= 60 && grade < 70)
+    return "C";
+if (grade >= 50 && grade < 60)
+    return "D";
+if (grade >= 0 && grade < 50)
+    return "F";
+----
+
+[source, role="linenos"]
+----
+for (i = 0; i < n; ++i)
+    for (j = 0; j < n; ++j)
+        if (i <= j)
+            sum += arr[i][j];
+----

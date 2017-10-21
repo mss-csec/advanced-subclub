@@ -7,6 +7,8 @@ schedule:
   type-modifiers-and-pointers: 13 Oct 2017
   standard-io: 13 Oct 2017
   introduction-to-algorithms: 27 Oct 2017
+  '0@Review and Practice': 3 Nov 2017
+  
 ---
 = Advanced
 
