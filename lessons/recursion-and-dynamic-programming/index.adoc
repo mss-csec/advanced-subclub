@@ -7,3 +7,108 @@ draft: true
 ---
 = Recursion and Dynamic Programming
 
+People say that to tackle a big project, we should first break it up into smaller, easier mini-projects to work on individually, and then to bring the individual parts back together.
+Likewise, when we tackle problems, we should first break it up into smaller, easier problems to work on individually, and then to bring the individual parts back together.
+
+But what if you could break it up into the _same_ problem?
+
+== Recursion
+
+You know that you can perform a linear search by checking the first element to the key, and then checking the second, and then so on.
+
+But that's equivalent to checking if the first element in the array to the key -- and then doing the exact same thing with a new array with elements one through the end.
+
+[source,cpp]
+----
+/* Performs a linear search.
+ * The array range is [begin, end) -- that is,
+ * begin is included but end is not.
+ */
+bool linear_search_iterative(int* begin, int* end, int key)
+{
+    int* i = begin;      //this will be our index
+    do
+    {
+        //if we find it, return true
+        if (*i == key) return true;
+    } while (++i != end) //increment and check for end condition
+    return false;
+}
+
+bool linear_search_recursive(int* begin, int* end, int key)
+{
+    if (begin == end) return false;                     //we've reached the end
+    if (*begin == key) return true;                     //we found it
+    return linear_search_recursive(begin+1, end, key);  //go on
+}
+----
+
+Of course, it might not make so much sense to use recursion with such a simple problem whose iterative method is so intuitive.
+But with other problems, it certainly would make quite a bit of sense.
+
+[source,cpp]
+----
+/* Performs a binary search on an ascending-sorted array.
+ * The array range is [begin, end) -- that is,
+ * begin is included but end is not.
+ */
+bool binary_search_iterative(int* begin, int* end, int key)
+{
+    int* mid;
+    while (begin != end)
+    {
+    	//choose our pivot.
+        //this is pointer arithmetic, and is legal.
+    	mid = (end - begin)/2 + begin;
+        
+        //did we find it?
+        if (key == *mid) return true;
+      	
+        //on which side is it?
+        if (key < *mid)
+            end = mid;
+        else
+            begin = mid + 1;
+    }
+    
+    return false;
+}
+
+bool binary_search_recursive(int* begin, int* end, int key)
+{
+    //check if we couldn't find it
+    if (begin == end) return false;
+
+    //choose pivot
+    int* mid = (end-begin)/2 + begin;
+    
+    //did we find it?
+    if (key == *mid) return true;
+    
+    //do it again, but in the section we know it'll be in
+    if (key < *mid) return binary_search_recursive(begin, mid, key);
+    return binary_search_recursive(mid+1, end, key);
+}
+----
+
+As you can probably see, with binary search (a divide-and-conquer algorithm), the recursive method is quite intuitive: the code speaks for itself.
+
+"If the array's empty (``begin == end``), then we didn't find it.
+Take the middle, and check if we found the key (``key == *mid``).
+If we still didn't find it, then check which side it's on, and do the same with the appropriate side."
+
+And for certain problems, the recursive approach is extremely simple to find.
+The archetypical example is to find a certain fibonacci number.
+The recursive solution is obvious, given just by the definition of a fibonnaci number:
+
+[source,cpp]
+----
+/* Calculates the n-th Fibonacci number.
+ * The zeroeth Fibonacci number is 0 and the first is 1.
+ */
+unsigned int fib(unsigned int n)
+{
+    if (n < 2) return n;
+    return fib(n-1) + fib(n-2);
+}
+----
