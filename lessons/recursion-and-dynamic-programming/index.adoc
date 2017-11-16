@@ -112,3 +112,103 @@ unsigned int fib(unsigned int n)
     return fib(n-1) + fib(n-2);
 }
 ----
+
+[IMPORTANT]
+====
+When you use recursion, you must make sure to cover every end case; recursive bugs tend to be difficult to isolate and fix.
+====
+
+But you may have noticed a problem with this solution.
+If you calculate ``fib(0)`` or ``fib(1)``, it takes exactly one iteration.
+Calculating ``fib(2)`` takes three: once each for 2, 1, and 0.
+Calculating ``fib(3)`` takes six: once each for 3 and 2, but twice each for 1 and 0.
+
+You'll notice an interesting pattern here: the number of iterations it takes to calculate ``fib(n)`` is the sum of the iterations it takes to calculate ``fib(n-1)`` and ``fib(n-2)`` plus one.
+
+Essentially, this algorithm runs in exponential time.
+Its time complexity is stem:[\text{O}(2^n)].
+
+That's not good.
+
+== Dynamic Programming
+
+But notice that the _reason_ that we have exponential time is that we calculate many of the same things multiple times.
+We know that ``fib(n)`` is deterministic -- that it always gives you the same output for the same input -- so instead of recalculating everything all the time, why don't we __cache__footnote:["write down", "store temporarily"] those values so we can just look them up later?
+
+This is called **memoization**footnote:[not "memorization": we're committing something to a _memo_, a cache, not to _memory_, which would imply that we're uploading it to some database that we could access whenever we wanted or something. That would be equivalent to computer-generated hardcoding and would give you stem:[\text{O}(1)] algorithms, which are neither interesting nor useful when you don't have access to the data.].
+
+So let's add an array -- a memo -- for us to commit our results onto.
+
+[source,cpp]
+----
+/* Calculates the n-th Fibonacci number.
+ * The zeroeth Fibonacci number is 0 and the first is 1.
+ * Uses memoization to achieve O(n) time complexity.
+ */
+unsigned int fib_ret[1000] = {0}; //declare memo, null initialize
+unsigned int fib(unsigned int n)
+{
+    //have we calculated this already?
+    if (fib_ret[n] > 0) return fib_ret[n];
+    if (n < 2) return fib_ret[n] = n;
+    return fib_ret[n] = fib(n-1) + fib(n-2);
+}
+----
+
+Our first check now is if we've found the answer, and now we achieve stem:[\text{O}(n)] time complexity.
+
+Here, we're using 0 as the "nope we need to calculate" index, since the only call that will result that is ``fib(0)``, and so we don't need to worry about redundancies.
+Oftentimes it's more useful to use -1 with signed ``int``s; this can easily be achieved with link:++http://www.cplusplus.com/reference/cstring/memset/++[``memset()``]:
+
+[source,cpp]
+----
+#include <string.h>
+//...
+int memo[WHATEVER];
+//...
+int main()
+{
+    //...
+    memset(memo, ~0, sizeof(int)*WHATEVER);
+    //...
+}
+----
+
+"But Hans," you say, "couldn't we just do this iteratively?"
+
+And I say, "Yes, of course you can. Here's the iterative version:"
+
+[source,{0}]
+----
+unsigned int fib(unsigned int n)
+{
+	unsigned int memo[n+1] = {0};
+    memo[1] = 1;
+    for (int i = 2; i <= n; ++i)
+    	memo[i] = memo[i-1] + memo[i-2];
+    return memo[n];
+}
+----
+
+But not all problems are so easy to move from the recursive method to the iterative method, and so it tends to be very useful to set up the recursive method and simply add the memo in to turn it into a DP approach.
+
+== An Example
+
+Consider problem link:++http://wcipeg.com/problem/dp1p1++[DP1P1: Maximum Sum].
+
+[quote, problem statement, dp1p1: Maximum Sum]
+____
+Given an array of (positive) integers, find a subset with the maximal sum.
+However, there is the additional restriction that no two numbers in the subset may be adjacent.
+
+For example, for the array ``4 5 6 9 10``:
+
+``4 6 10`` is valid, while ``5 9 10`` is invalid since 9 and 10 are next to each other.
+``4 6 10`` happens to be the optimal sum in this case, so 20 is the answer.
+____
+
+Let stem:[a_i] be the value of element stem:[i] in the array.
+
+We'll define a function stem:[f(n)] that is the maximum subset sum, given the restriction, for elements stem:[[0,n)]footnote:[the first stem:[n] elements] of the array.
+
+We can see that stem:[f(n)=\max(f(n-1), f(n-2)+a_n)]; that is,
