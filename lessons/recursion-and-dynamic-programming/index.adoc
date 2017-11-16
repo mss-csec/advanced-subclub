@@ -211,4 +211,105 @@ Let stem:[a_i] be the value of element stem:[i] in the array.
 
 We'll define a function stem:[f(n)] that is the maximum subset sum, given the restriction, for elements stem:[[0,n)]footnote:[the first stem:[n] elements] of the array.
 
-We can see that stem:[f(n)=\max(f(n-1), f(n-2)+a_n)]; that is,
+Obviously, stem:[f(0)=0] and stem:[f(1)=a_0]: the maximum sum of the first zero elements is obviously zero and the maximum sum of the first element is just the first element.
+
+We can see that stem:[f(n)=\max\Big(f(n-1), f(n-2)+a_{n-1}\Big)].
+This makes sense, as either we use the maximal sum of the previous stem:[n-1] elements and skip this element, or we use the maximal sum of the previous stem:[n-2] elements and the current elementfootnote:[which is stem:[a_{n-1}] due to zero-indexing], skipping the previous element and including the current element.
+
+If we construct the code, it should look somewhat like this:
+
+[source,cpp]
+----
+#include <stdio.h>   //scanf(), printf()
+
+//it's <algorithm> that has max(), but also so much also stuff
+//that might increase compile times and program size
+int max(int a, int b)
+{
+    return (a>b)?a:b;
+}
+
+//our array of numbers
+int *arr;
+
+//this is f(n) exactly as we defined earlier
+int max_firsts(int len)
+{
+    if (len == 0) return 0;
+    if (len == 1) return arr[0];
+    return max(max_firsts(len-1), max_firsts(len-2) + arr[len-1]);
+}
+
+int main()
+{
+    //get inputs
+    int n;
+    scanf("%d", &n);
+    arr = new int[n];
+    
+    for (int i = 0; i < n; ++i)
+    	scanf("%d", arr+i);
+    
+    //print output
+    printf("%d", max_firsts(n));
+    return 0;
+}
+----
+
+This recursive solution works perfectly fine, but it has time complexity stem:[\text{O}(2^n)].
+This occurs because we'll be re-evaluating many of the same instances again and again, exactly like we were doing with the fibonacci algorithm.
+So let's memoize:
+
+[source,cpp]
+----
+#include <stdio.h>   //scanf(), printf()
+#include <string.h>  //memset();
+
+//it's <algorithm> that has max(), but also so much also stuff
+//that might increase compile times and program size
+int max(int a, int b)
+{
+    return (a>b)?a:b;
+}
+
+//our array of numbers
+int *arr;
+//the memo
+int *memo;
+
+//this is f(n) exactly as we defined earlier, but with memoization
+int max_firsts(int len)
+{
+    if (memo[len] >= 0) return memo[len];
+    if (len == 0) return memo[len] = 0;
+    if (len == 1) return memo[len] = arr[0];
+    return memo[len] = max(max_firsts(len-1), max_firsts(len-2) + arr[len-1]);
+}
+
+int main()
+{
+    //get inputs
+    int n;
+    scanf("%d", &n);
+    arr = new int[n];
+    memo = new int[n+1];
+    memset(memo, ~0, sizeof(int)*(n+1));
+    
+    for (int i = 0; i < n; ++i)
+    	scanf("%d", arr+i);
+    
+    //print output
+    printf("%d", max_firsts(n));
+    return 0;
+}
+----
+
+And so, we have an stem:[\text{O}(n)] solution to this problem.
+
+[NOTE]
+====
+Your memo should have as many dimensions as the length of your parameter list; if you need two variables in the parameter list, they should both be accounted for.
+====
+
+== Practice
+
