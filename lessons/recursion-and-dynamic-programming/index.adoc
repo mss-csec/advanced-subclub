@@ -313,3 +313,9 @@ Your memo should have as many dimensions as the length of your parameter list; i
 
 == Practice
 
+* link:++http://wcipeg.com/problem/ccc07j5++[CCC07J5: Keep on Truckin']
+** Hint: Consider using a link:++https://en.wikipedia.org/wiki/Sparse_matrix++[sparse array]
+* link:++http://wcipeg.com/problem/dp1p2++[DP1P2: A Game] 
+** Hint: Consider using two-parameter recursion
+* link:++http://wcipeg.com/problem/dp1p3++[DP1P3: Longest Increasing Subsequence]
+* link:++http://wcipeg.com/problem/ccc00s4++[CCC00S4: Golf]
