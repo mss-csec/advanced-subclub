@@ -9,7 +9,8 @@ schedule:
   introduction-to-algorithms: 27 Oct 2017
   '0@Review and Practice': 3 Nov 2017
   recursion-and-dynamic-programming: 17 Nov 2017
-  
+  data-structures: 1 Dec 2017
+  introduction-to-graph-theory: 1 Dec 2017
 ---
 = Advanced
 
