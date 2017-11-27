@@ -21,15 +21,15 @@ If you are learning these for the first time, *do not* only read the summaries, 
 
 toc::[]
 
-== Containers
+== Sequence Containers
 
-Containers are used to store groups of similar objects.
+Sequence containers are used to store groups of similar objects in some undefined sequence, usually chronological.
 
 === Vector
 
 |===
 |STL analogue|link:++http://www.cplusplus.com/reference/vector/vector/++[``std::vector<T>``]
-|C analogue|``<T>*``
+|C analogue|``T*``
 |===
 
 |===
@@ -95,4 +95,31 @@ As such, we can achieve stem:[\text{O}(1)] merging.
 
 Now, seeing that more operations here have stem:[\text{O}(1)] time than with vectors, you may be asking, "Why not use linked lists everywhere?"
 
-The reason why you don't see them more is because most of the time, we need to do a lot of random-access, and that wouldn't be good with
+The reason why you don't see them more is because most of the time, we need to do a lot of random-access, and that wouldn't be good with an stem:[\text{O}(n)] random-access speed.
+
+They are, however, useful where you need to combine or separate lists in different orders; for example, if you were to rotate an array by stem:[k] elements, you'd need to do stem:[n] swaps in a vector compared to a break and merge with a linked list.
+
+=== Double-Ended Queue (Deque)
+|===
+|STL analogue|link:++http://www.cplusplus.com/reference/deque/++[``std::deque<T>``]
+|===
+|===
+|Random Access|Push/Pop|Insert/Erase|Merge
+|stem:[\text{O}(1)]
+|stem:[\text{O}(1)]
+|stem:[\text{O}(n)]
+|stem:[\text{O}(n)]
+|===
+
+**D**ouble **e**nded **que**ues, or deques (pronounced like _deck_), were containers made for the purpose of quick pushing and popping from _both_ the front _and_ the back.
+
+Typically, they take the form of a collection of vectors: pushing to the back adds to the end vector and pushing to the front adds to the begin vector.
+When the end or begin vector runs out of space, a new one is declared and instantiated to have the respective position.
+
+The collection of vectors is usually handled like both a vector _and_ a linked list; each vector links to the next and previous vectors for the sake of traversal, and a master vector of pointers to each vector is kept for the sake of random access.
+
+As such, *access* takes two redirections, one to find where the desired vector is and one to find which element of the vector is the desired element, achieving stem:[\text{O}(1)] time.
+
+*Pushing* and *popping* is trivial, and once again takes stem:[\text{O}(1)] time.
+
+*Insertion* and *Erasure*, like the vector, requires the shifting of all elements, and as expected takes stem:[\text{O}(n)] time.
