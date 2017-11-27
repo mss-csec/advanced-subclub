@@ -33,7 +33,7 @@ Containers are used to store groups of similar objects.
 |===
 
 |===
-|Access|Push/Pop Back|Insert/Erase|Merge
+|Random Access|Push/Pop Back|Insert/Erase|Merge
 |stem:[\text{O}(1)]
 |stem:[\text{O}(1)]
 |stem:[\text{O}(n)]
@@ -64,6 +64,35 @@ Most applications for storing data will use these.
 === Linked List
 
 |===
-|STL analogue|``std::list<T>``
-``std::forward_list<T>``
+|STL analogue|link:++http://www.cplusplus.com/reference/list/++[``std::list<T>``]footnote:[doubly-linked list]
+link:++http://www.cplusplus.com/reference/forward_list/++[``std::forward_list<T>``]footnote:[singly-linked list] ^{cpp}11^
 |===
+
+|===
+|Random Access|Push/Pop|Insert/Erase|Merge
+|stem:[\text{O}(n)]
+|stem:[\text{O}(1)]
+|stem:[\text{O}(1)]
+|stem:[\text{O}(1)]
+|===
+
+*Linked lists* use a very different approach from the vector.
+Instead of storing every element contiguously in memory, the  location of the first element is stored and each element stores the location of the next element.
+
+In this way, we get a "linked" list, since each element "links" to the next.
+
+A *doubly-linked list* stores also the last element and every element also stores the location of the previous element.
+
+We must traverse linked lists, however, element-by-element, since otherwise we don't know where anything is.
+*Access*, then, is stem:[\text{O}(n)].
+
+To *insert* or *erase* at any pointfootnote:[at where the current iterator is], we only need to manipulate a few pointers; as such, we can achieve stem:[\text{O}(1)] time.
+
+To *push* or *pop* from the front or backfootnote:[only front in a singly-linked list], we do exactly what we did with insertion and erasure, and once again achieve stem:[\text{O}(1)] time.
+
+And to *merge*, all we need to do is link the last element of one linked list to the first element of the other linked list -- then traversal will go through both lists.
+As such, we can achieve stem:[\text{O}(1)] merging.
+
+Now, seeing that more operations here have stem:[\text{O}(1)] time than with vectors, you may be asking, "Why not use linked lists everywhere?"
+
+The reason why you don't see them more is because most of the time, we need to do a lot of random-access, and that wouldn't be good with
