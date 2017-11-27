@@ -6,3 +6,64 @@ lesson: 7
 draft: true
 ---
 = Data Structures
+:toc: macro
+
+Data structures are methods of storing data in a way that optimizes certain important operations.
+
+You won't get far without any of these.
+
+[NOTE]
+====
+This lesson is intended mainly as a reference, and as such contain summary sections.
+
+If you are learning these for the first time, *do not* only read the summaries, as they will be of no help.
+====
+
+toc::[]
+
+== Containers
+
+Containers are used to store groups of similar objects.
+
+=== Vector
+
+|===
+|STL analogue|link:++http://www.cplusplus.com/reference/vector/vector/++[``std::vector<T>``]
+|C analogue|``<T>*``
+|===
+
+|===
+|Access|Push/Pop Back|Insert/Erase|Merge
+|stem:[\text{O}(1)]
+|stem:[\text{O}(1)]
+|stem:[\text{O}(n)]
+|stem:[\text{O}(n)]
+|===
+
+Vectors are the most basic container: an array of elements.
+
+*Accessing* an element at index stem:[i] only requires looking stem:[i] elements in memory after the first element.
+Since this process is so simple, we can do this in stem:[\text{O}(1)].
+This ability is called *random access*.
+
+We can *resize* vectors by reallocating memory and copying the data over.
+As this is also a simple step, this takes stem:[\text{O}(1)] time.
+
+To **push**footnote:[insert to back] or **pop**footnote:[erase at back], we need only to resize if necessary before assigning to the last element.
+This, again, takes stem:[\text{O}(1)] time.
+
+To *insert* or *erase* at any position, however, requires that _every element after_ is shiftedfootnote:[to the right for insertions, to the left for deletions] so that there is space or the gap is filled.
+Since up to all the elements might need to be shifted, and each shift must be made with a swap, this takes stem:[\text{O}(n)] time.
+
+If we needed to *merge* two vectors and combine their data, then we would have to push up as many elements as are in both.
+So, once again, this operation can occur in stem:[\text{O}(n)] time.
+
+Vectors are your most basic container.
+Most applications for storing data will use these.
+
+=== Linked List
+
+|===
+|STL analogue|``std::list<T>``
+``std::forward_list<T>``
+|===
