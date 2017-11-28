@@ -209,4 +209,7 @@ These are the most simple of what are considered proper _data structures_.
 == Trees
 === Binary Search Tree
 === Prefix Tree (Trie)
-=== Disjoint-Set 
+=== Disjoint-Set
+
+== Other
+=== Hash Table
