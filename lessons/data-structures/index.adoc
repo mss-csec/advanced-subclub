@@ -25,6 +25,42 @@ toc::[]
 
 Sequence containers are used to store groups of similar objects in some undefined sequence, usually chronological.
 
+|===
+||Vector|Linked List|Deque
+
+|STL analogue
+|link:++http://www.cplusplus.com/reference/vector/vector/++[``std::vector<T>``]
+|link:++http://www.cplusplus.com/reference/list/list/++[``std::list<T>``]
+link:++http://www.cplusplus.com/reference/forward_list/forward_list/++[``std::forward_list<T>``]
+|link:++http://www.cplusplus.com/reference/deque/deque/++[``std::deque<T>``]
+
+|C analogue
+|``T*``
+|
+|
+
+|Random Access
+|stem:[\text{O}(1)]
+|stem:[\text{O}(n)]
+|stem:[\text{O}(1)]
+|Push/Pop Back
+|stem:[\text{O}(1)]
+|stem:[\text{O}(1)]
+|stem:[\text{O}(1)]
+|Push/Pop Front
+|
+|stem:[\text{O}(1)]
+|stem:[\text{O}(1)]
+|Insert/Erase
+|stem:[\text{O}(n)]
+|stem:[\text{O}(1)]
+|stem:[\text{O}(n)]
+|Merge
+|stem:[\text{O}(n)]
+|stem:[\text{O}(1)]
+|stem:[\text{O}(n)]
+|===
+
 === Vector
 
 |===
@@ -64,8 +100,8 @@ Most applications for storing data will use these.
 === Linked List
 
 |===
-|STL analogue|link:++http://www.cplusplus.com/reference/list/++[``std::list<T>``]footnote:[doubly-linked list]
-link:++http://www.cplusplus.com/reference/forward_list/++[``std::forward_list<T>``]footnote:[singly-linked list] ^{cpp}11^
+|STL analogue|link:++http://www.cplusplus.com/reference/list/list/++[``std::list<T>``]footnote:[doubly-linked list]
+link:++http://www.cplusplus.com/reference/forward_list/forward_list/++[``std::forward_list<T>``]footnote:[singly-linked list] ^{cpp}11^
 |===
 
 |===
@@ -101,7 +137,7 @@ They are, however, useful where you need to combine or separate lists in differe
 
 === Double-Ended Queue (Deque)
 |===
-|STL analogue|link:++http://www.cplusplus.com/reference/deque/++[``std::deque<T>``]
+|STL analogue|link:++http://www.cplusplus.com/reference/deque/deque/++[``std::deque<T>``]
 |===
 |===
 |Random Access|Push/Pop|Insert/Erase|Merge
@@ -123,3 +159,54 @@ As such, *access* takes two redirections, one to find where the desired vector i
 *Pushing* and *popping* is trivial, and once again takes stem:[\text{O}(1)] time.
 
 *Insertion* and *Erasure*, like the vector, requires the shifting of all elements, and as expected takes stem:[\text{O}(n)] time.
+
+*Merging* is, too, just like the vectorfootnote:[it can be argued that with the correct conditions, we can append a deque as with a linked list, but the master vector still needs to be updated in stem:[\text{O}(n)] time]: it takes stem:[\text{O}(n)] time to push every element.
+
+Deques have operations which run exactly at the same time complexity as vectors, but they have more functionality.
+So once again, you might ask, "Why should I ever use the verctor if I can use a deque?"
+
+Deques use much more overhead processing: the same operation on a deque usually takes twice as long as one on a vector.
+And freeing all the memory from a deque is an stem:[\text{O}(n)] operation, which I learned from bitter experience.
+
+== Container Adaptors
+
+Container adaptors take base sequence containers and specialize them for a specific purpose.
+These are the most simple of what are considered proper _data structures_.
+
+=== Stack
+|===
+|STL analogue|link:++http://www.cplusplus.com/reference/stack/stack/++[``std::stack<T>``]
+|===
+|===
+|Peek|Push|Pop
+|top
+|top
+|top
+|===
+
+=== Queue
+|===
+|STL analogue|link:++http://www.cplusplus.com/reference/queue/queue/++[``std::queue<T>``]
+|===
+|===
+|Peek|Push|Pop
+|front, back
+|back
+|front
+|===
+
+=== Heap
+|===
+|STL analogue|link:++http://www.cplusplus.com/reference/queue/priority_queue/++[``std::priority_queue<T>``]
+|===
+|===
+|Peek|Push|Pop
+|top
+|dependent
+|top
+|===
+
+== Trees
+=== Binary Search Tree
+=== Prefix Tree (Trie)
+=== Disjoint-Set 
