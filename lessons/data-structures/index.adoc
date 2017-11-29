@@ -16,7 +16,7 @@ You won't get far without any of these.
 ====
 This lesson is intended mainly as a reference, and as such contain summary sections.
 
-If you are learning these for the first time, *do not* only read the summaries, as they will be of no help.
+There are, of course, lesson portions; but if you are learning these for the first time, *do not* only read the summaries, as they will be of no help.
 ====
 
 toc::[]
@@ -208,8 +208,28 @@ These are the most simple of what are considered proper _data structures_.
 
 == Trees
 === Binary Search Tree
+|===
+|STL analogue|link:++http://www.cplusplus.com/reference/set/set/++[``std::set<T>``]
+|===
+|===
+|Find|Insert|Erase
+|stem:[\text{O}(\log{n})]
+|stem:[\text{O}(\log{n})]
+|stem:[\text{O}(1)]
+|===
 === Prefix Tree (Trie)
+|===
+|Find|Insert|Erase
+|stem:[\text{O}(m)]footnote:[for stem:[m], the length of the data]
+|stem:[\text{O}(m)]
+|stem:[\text{O}(m)]
+|===
 === Disjoint-Set
+|===
+|Find|Union
+|stem:[\text{O}(\alpha(n))]footnote:[stem:[\alpha(n)] is the inverse link:++https://en.wikipedia.org/wiki/Ackermann_function++[ackermann function], which for all practical inputs is less than five.]
+|stem:[\text{O}(\alpha(n))]
+|===
 
 == Other
 === Hash Table
