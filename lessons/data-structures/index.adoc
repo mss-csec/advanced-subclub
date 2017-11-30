@@ -184,6 +184,18 @@ These are the most simple of what are considered proper _data structures_.
 |top
 |===
 
+Stacks are first-in, last-out containers.
+Think of a _stack_ of objects, like paper: you can put stuff on and take stuff off the top, but it's messy to do it from anywhere else.
+
+You may have heard of the "stack" and "heap" when it comes to memory allocation; the "stack" refers to the stack of function calls.
+A function cannot return until all the functions it was calling returns; the _first_ function to be called is the _last_ one to be returned from, and vice-versa.
+
+We say that where we can push and pop is the *top* of the stack.
+Most implementations also allow a *peek*, which is to return the value of the top element.
+
+These have many applications in client-side interfaces, such as the call stack or in menus.
+These are typically implemented with vectors.
+
 === Queue
 |===
 |STL analogue|link:++http://www.cplusplus.com/reference/queue/queue/++[``std::queue<T>``]
@@ -195,16 +207,37 @@ These are the most simple of what are considered proper _data structures_.
 |front
 |===
 
+Queues are first-in, first-out containers.
+Think of a a _queue_ of customers waiting for the cashier at Foody Mart: the first one in the line gets out of the line first.
+If someone cuts in, we get undesirable results.
+
+We say that the *front* of the queue is where we pop, and the *back* of the queue is where we push.
+You can typically *peek* at the front, and sometimes at the back.
+
+These have many applications in network-side interfaces; for example, you'd want to process the first packet you receive first rather than last.
+They're also useful when dealing with multithreading (which is kind of like a network) to avoid desyncs.
+
+These are typically implemented with deques.
+
 === Heap
 |===
 |STL analogue|link:++http://www.cplusplus.com/reference/queue/priority_queue/++[``std::priority_queue<T>``]
 |===
 |===
 |Peek|Push|Pop
-|top
+
+|max
 |dependent
-|top
+|max
+|stem:[\text{O}(1)]
+|stem:[\text{O}(\log{n})]
+|stem:[\text{O}(\log{n})]
 |===
+
+Heaps are containers which "automatically sort" data.
+While their mechanisms are somewhat out of the scope of this article since you can just use ``std::priority_queue<T>``, the result is that the top element is _always_ the maximum (or minimum if you use the opposing predicate).
+
+These are very useful in graph theory, which will be the focus of the next lesson.
 
 == Trees
 === Binary Search Tree
@@ -212,24 +245,63 @@ These are the most simple of what are considered proper _data structures_.
 |STL analogue|link:++http://www.cplusplus.com/reference/set/set/++[``std::set<T>``]
 |===
 |===
-|Find|Insert|Erase
+|Find|Insert|Erase|Memory Usage
 |stem:[\text{O}(\log{n})]
 |stem:[\text{O}(\log{n})]
 |stem:[\text{O}(1)]
+|stem:[\Theta(n)]
 |===
 === Prefix Tree (Trie)
 |===
-|Find|Insert|Erase
+|Find|Insert|Erase|Memory Usage
 |stem:[\text{O}(m)]footnote:[for stem:[m], the length of the data]
 |stem:[\text{O}(m)]
 |stem:[\text{O}(m)]
+|stem:[\Theta(m\log{n})]
 |===
 === Disjoint-Set
 |===
-|Find|Union
+|Find|Union|Memory Usage
 |stem:[\text{O}(\alpha(n))]footnote:[stem:[\alpha(n)] is the inverse link:++https://en.wikipedia.org/wiki/Ackermann_function++[ackermann function], which for all practical inputs is less than five.]
 |stem:[\text{O}(\alpha(n))]
+|stem:[\Theta(n)]
 |===
 
 == Other
 === Hash Table
+|===
+|STL analogue|link:++http://www.cplusplus.com/reference/map/map/++[``std::map<const T,T>``]
+|===
+|===
+|Find|Insert|Erase|Memory Usage
+|stem:[\text{O}(1)]
+|stem:[\text{O}(1)]
+|stem:[\text{O}(1)]
+|stem:[\Omega(n)]footnote:[the Big Omega (stem:[\Omega]) denotes the _lower bound_: it'll use more memory than stem:[n] times some constant multiple.]
+|===
+
+== Practice
+|===
+|Structure|Problems
+
+|Linked List
+|
+|Deque
+|
+|Stack
+|link:++http://wcipeg.com/problem/ccc15s1++[CCC15S1: Zero that Out]
+
+link:++http://wcipeg.com/problem/ccc14s3++[CCC14S3: The Geneva Confection]
+|Queue
+|link:++http://wcipeg.com/problem/ccc13s2++[CCC13S2: Bridge Transport]
+|Heap
+|
+|Binary Search Tree
+|
+|Trie
+|
+|Disjoint-Set
+|link:++http://wcipeg.com/problem/ccc15s3++[CCC15S3: Gates]footnote:[this problem's problem statement starts out with the best sentence ever]
+|Hash Table
+|link:++http://wcipeg.com/problem/ccc96s4++[CCC96S4: When in Rome]
+|===
