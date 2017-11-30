@@ -293,17 +293,73 @@ Each thing constitutes their own groupfootnote:[set].
 You will be asked to check if two things are in the same group.
 You will be told to merge groups, given two individual things: one from each group.
 
-Enter the dijoint-set data structure!
+Enter the disjoint-set data structure!
 
 We begin with an array as long as the number of elements.
-The value of each element is set to their index.
 
-If the value of an element is their index stem:[i], then we say that that element is in set stem:[i].
+We use two rules to determine which elements are in which sets:
+
+. If the value of an element is their index stem:[i], then we say that that element is in set stem:[i].
+. If the value stem:[n] of an element is _not_ their index, then they are in the set that the element at index stem:[n] is at.
+
+For example, take the following array:
+
+----
+ind. 0 1 2 3 4 5 6 7 8 9
+val. 0 1 2 2 4 5 2 3 8 9
+----
+
+Elements stem:[\{0, 1, 2, 4, 5, 8, 9\}] are in sets stem:[\{0, 1, 2, 4, 5, 8, 9\}], respectively, by rule 1.
+Elements stem:[\{3, 6\}] are in set stem:[2] by rule 2.
+And element stem:[7] is in the same set as element stem:[3] by rule 2, so it's also in set 2.
+
+You can represent this situation mathematically as stem:[\{\{0\},\{1\},\{2,3,6,7\},\{4\},\{5\},\{8\},\{9\}\}].
+We can also represent this in a forest of trees (hence why this is under the tree section) like so:
+----
+0 1 2 4 5 8 9
+    |\
+    3 6
+    |
+    7
+----
+
+When we *find*, we simply traverse the tree.
+We can use this to do an optimization by _flattening_ the tree: for every element we pass through, we set it to the root element.
+For example, if we passed a find operation through element stem:[7] in our previous example, we would change stem:[7] to point to stem:[2], shortening later running times.
+
+----
+0 1 2 4 5 8 9
+   /|\
+  3 6 7
+----
+
+When we *merge*, we only need to find the roots of both elements before setting one root to another root.
+For example, if we merged the sets of elements stem:[1] and stem:[2], we would set the value of element stem:[2] to stem:[1] (or vice versa, depending on implementation).
+
+----
+0 1 4 5 8 9
+  |
+  2
+ /|\
+3 6 7
+----
+
+If we ran a merge now on stem:[7] and stem:[5], we would first do a find, and then a merge:
+----
+0 1 4 5 8 9     0 1 4 8 9
+  |\             /|\
+  2 7     -->   2 5 7
+  |\            |\
+  3 6           3 6
+----
+
+Naturally, when asked for something that requires millions of elements, this becomes very useful.
 
 == Other
 === Hash Table
 |===
 |STL analogue|link:++http://www.cplusplus.com/reference/map/map/++[``std::map<const T,T>``]
+|Associative|Keys can be of any type
 |===
 |===
 |Find|Insert|Erase|Memory Usage
@@ -312,6 +368,15 @@ If the value of an element is their index stem:[i], then we say that that elemen
 |stem:[\text{O}(1)]
 |stem:[\Omega(n)]footnote:[the Big Omega (stem:[\Omega]) denotes the _lower bound_: it'll use more memory than stem:[n] times some constant multiple.]
 |===
+
+A hash table is an *associative* container: a value is found based on its *key*.
+This is somewhat similar to that of a how you can access elements in vector by its index, but here, the keys can be of _any type_ and, if an ``int``, can take _any value_, including negatives and numbers in the billions (which normally wouldn't fit on a 32-bit pointer).
+
+It does this by implementing a *hash function* that takes the key, does some voodoo magic on it, and returns an index small enough to keep in a smaller array.
+For example, if there's fifty elements in a hash table, the table's capacity might actually be something like seventy-three.
+
+Doing this allows you to use large, negative, and non-integral keys.
+For example, it's very useful to use these to convert from ``std::string``footnote:[only use ``std::string`` with ``std::map<const T, T>``; you'll run into lots of problems with ``char*``] to ``int``.
 
 == Practice
 |===
@@ -337,4 +402,6 @@ link:++http://wcipeg.com/problem/ccc14s3++[CCC14S3: The Geneva Confection]
 |link:++http://wcipeg.com/problem/ccc15s3++[CCC15S3: Gates]footnote:[this problem's problem statement starts out with the best sentence ever]
 |Hash Table
 |link:++http://wcipeg.com/problem/ccc96s4++[CCC96S4: When in Rome]
+
+link:++http://wcipeg.com/problem/ccc17s3++[CCC17S3: Nailed It!]
 |===
