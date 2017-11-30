@@ -245,12 +245,19 @@ These are very useful in graph theory, which will be the focus of the next lesso
 |STL analogue|link:++http://www.cplusplus.com/reference/set/set/++[``std::set<T>``]
 |===
 |===
-|Find|Insert|Erase|Memory Usage
+|Findfootnote:[find and insert are _best_ and _average case_; the worse case is stem:[\text{O}(n)], but that doesn't occur as often.]|Insert|Erase|Memory Usage
 |stem:[\text{O}(\log{n})]
 |stem:[\text{O}(\log{n})]
 |stem:[\text{O}(1)]
 |stem:[\Theta(n)]
 |===
+
+You've heard of binary search.
+The binary search tree constructs a tree optimized for searching.
+
+Whereas a heap keeps _one_ element in the right place, the binary tree keeps _all_ of them in the right place.
+Unfortunately, because of its structure, the minimum/maximum element is almost never going to be near the beginning of the search, and so it isn't just a better version of the heap.
+
 === Prefix Tree (Trie)
 |===
 |Find|Insert|Erase|Memory Usage
@@ -259,6 +266,19 @@ These are very useful in graph theory, which will be the focus of the next lesso
 |stem:[\text{O}(m)]
 |stem:[\Theta(m\log{n})]
 |===
+
+A trie stores prefixes (hence the name "prefix tree").
+The name "trie" comes from the middle syllable of "retrieval."
+I'm not quite sure why.
+
+This is a method for storing large numbers of strings in a way that's both easy on memory and fast for retrieval.
+Instead of making a giant array, we construct a tree.
+Its root has all the first letters as children, and each node has all the next relevant letters as children.
+A special character, usually ``nul``, denotes the end of string.
+
+We most likely won't run into this, but it's useful to know about.
+Perhaps it'll inspire a solution to some other problem.
+
 === Disjoint-Set
 |===
 |Find|Union|Memory Usage
@@ -266,6 +286,19 @@ These are very useful in graph theory, which will be the focus of the next lesso
 |stem:[\text{O}(\alpha(n))]
 |stem:[\Theta(n)]
 |===
+
+Say you have some large number of thingsfootnote:[elements].
+Each thing constitutes their own groupfootnote:[set].
+
+You will be asked to check if two things are in the same group.
+You will be told to merge groups, given two individual things: one from each group.
+
+Enter the dijoint-set data structure!
+
+We begin with an array as long as the number of elements.
+The value of each element is set to their index.
+
+If the value of an element is their index stem:[i], then we say that that element is in set stem:[i].
 
 == Other
 === Hash Table
