@@ -10,7 +10,16 @@ schedule:
   '0@Review and Practice': 3 Nov 2017
   recursion-and-dynamic-programming: 17 Nov 2017
   data-structures: 1 Dec 2017
-  introduction-to-graph-theory: 1 Dec 2017
+  introduction-to-graph-theory: 8 Dec 2017
+  implementations-of-graph-theory: 8 Dec 2017
+  applications-of-graph-theory: 8 Dec 2017
+  minimum-spanning-tree: 15 Dec 2017
+  shortest-path: 22 Dec 2017
+  travelling-salesman: 12 Dec 2017
+  other-algorithms: 12 Jan 2018
+  '1@Review and Practice': 8 Feb 2018
+  '2@Canadian Computing Competition': 14 Feb 2018
+  '3@Discussion of CCC': 23 Feb 2018
 ---
 = Advanced
 
