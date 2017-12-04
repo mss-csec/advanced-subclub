@@ -1,0 +1,7 @@
+---
+layout: resource
+category: advanced
+draft: true
+---
+
+= Debugging in Code::Blocks
