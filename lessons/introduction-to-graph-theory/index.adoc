@@ -20,4 +20,48 @@ NOTE: For the purposes of this course, we will mostly refer to vertices and node
 == Properties of Graphs
 
 Graphs have a number of *nodes* and a number of *edges*.
-Edges will often have *weights*, where 
+
+Edges may have *weights*; these commonly denote some sort of _cost_ to "traverse" or _distance_ of an edge.
+Typically you see these with most applications of graphs.
+
+Graphs can have *cycles*: a series of distinct edges that lead back to the beginning.
+In the above example graph, we have the cycles:
+
+stem:[4\rightarrow 5\rightarrow 2\rightarrow 3\rightarrow 4],
+
+stem:[5\rightarrow 1\rightarrow 2\rightarrow 5],
+
+stem:[4\rightarrow 5\rightarrow 1\rightarrow 2\rightarrow 3\rightarrow 4],
+
+and their reverses and rotations.
+A graph without cycles is *acyclic*.
+
+So far, we looked at *undirected graphs* with bidirectional edges, but sometimes edges are *directed* and can only be traversed in one direction.
+
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/4-tournament.svg/250px-4-tournament.svg.png++[A directed graph]
+
+Here, we have the cycles:
+
+stem:[1\rightarrow 2\rightarrow 4\rightarrow 3\rightarrow 1],
+
+stem:[1\rightarrow 4\rightarrow 3\rightarrow 1], and
+
+stem:[2\rightarrow 4\rightarrow 3\rightarrow 2].
+
+Not all graphs are *connected*, as we've seen so far.
+They can also be *disconnected*, where you have at least two *subgraphs* that constitute the larger graph but aren't connected to each other with an edge.
+
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/UndirectedDegrees.svg/258px-UndirectedDegrees.svg.png++[A disconnected graph]
+
+Here, subgraphs stem:[\{0\}] and stem:[\{1,2,2,3,3,3\}] are internally connected, but not to each other.
+The graph overall is disconnected.
+
+link:++https://en.wikipedia.org/wiki/Tree++[*Trees*] are connected undirected, acyclic graphs.
+
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Tree_graph.svg/180px-Tree_graph.svg.png++[A tree]
+
+These have very interesting properties that will be explored later.
+
+*Forests* are collections of disconnected trees.
+
+Now that I've thrown at you all these terms you have yet to see a use for, it's time to move on to Implementations and Applications of Graph Theory.
