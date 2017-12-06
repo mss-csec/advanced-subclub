@@ -6,3 +6,18 @@ lesson: 8
 draft: true
 ---
 = Introduction to Graph Theory
+
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/6n-graf.svg/333px-6n-graf.svg.png++[A graph]
+
+A *graph* is a collection of *vertices* and *edges*, or of *nodes* and *connections*.
+In the above graph, we have six vertices (or nodes) and seven edges (or connections) between the six vertices.
+For example, one of these edges connects vertices 4 and 6 in the top-left.
+
+NOTE: For the purposes of this course, we will mostly refer to vertices and nodes as *nodes* and edges or connections as *edges*.
+
+*_Graph Theory_* is the study of graphs, their properties, and their applications.
+
+== Properties of Graphs
+
+Graphs have a number of *nodes* and a number of *edges*.
+Edges will often have *weights*, where 
