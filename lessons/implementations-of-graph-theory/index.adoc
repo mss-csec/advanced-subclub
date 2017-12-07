@@ -6,3 +6,64 @@ lesson: 9
 draft: true
 ---
 = Implementations of Graph Theory
+
+Now that you what graph theory is and what it entails, perhaps you want to know how to actually code something that represents it.
+
+There are two common methods of doing this.
+
+== Adjacency Matrices
+
+An *adjacency matrix* is exactly what it sounds like (if you know what the words mean): a matrix (two-dimensional array) that stores adjacencies between nodes.
+
+Typically, these are implemented as two-dimensional arrays.
+Each value in the array is the *weight* of an edge between two adjacent nodes; if it's some previously-specified error value (usually ``0`` or ``-1``), then the two nodes aren't adjacent.
+
+These are very simple to implement, but have two downsides:
+
+. they are memory-intensive and typically waste lots memory, considering that most nodes aren't adjacent to most other nodes, and
+. they are useless for edge-optimized algorithms such as Bellman-Ford's or Kruskal's algorithm, as edges are stored implicitly.
+
+But if you're not sure how to implement the more robust method, the adjacency matrix is very useful for getting yourself started.
+
+[source,cpp]
+----
+int weights[num_nodes][num_nodes];
+----
+
+== Object-Oriented Approach
+
+I say "object-oriented," but it's not actually using stuff with objects.
+We don't need classes or inheritance or anything stupid like that; rather, we're just approaching it from that mindset: nodes and edges are both objects.
+
+A node stores a list of edges that it can traverse with, and an edges stores the two nodes it connects and whatever extra properties it may have.
+
+What you get, then, is this:
+
+[source,cpp]
+----
+//prototype
+struct edge;
+
+struct node
+{
+    std::vector<edge*> connections;
+};
+struct edge
+{
+    node *from, *to;
+    int weight;
+};
+
+std::vector<node> all_nodes;
+std::vector<edge> all_edges;
+----
+
+If you've been following on how to use pointers, then you'll see why this makes sense: we have nodes which store pointers to edges and edges which store pointers to nodes.
+To keep track of everything, we also have two master lists of nodes and edges, from which all of the references are grounded.
+
+We can also include an _ID_ field in the nodes and edges if we wanted to, which would help us find which node and edge are which index in their respective master lists very quickly.
+
+This is harder to code, but in the end it's more sustainable than an adjacency matrix, and it'll work for edge-based optimizations.
+
+And now that you know how to put this stuff in code, you're probably wondering about what we're going to do with all this stuff.
+That's for the Applications of Graph Theory section.
