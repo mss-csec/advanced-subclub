@@ -6,3 +6,40 @@ lesson: 10
 draft: true
 ---
 = Applications of Graph Theory
+
+"Hans, graph theory seems really cool," you say. "But what the heck are we going to use it for?"
+
+Graph theory is commonly used in AI and optimization applications, especially in pathfinding and goal-setting.
+
+You can represent *states* with nodes and methods to *change* state with edges.
+For example, in a typical path-finding application, your nodes may represent islands and your edges sea routes.
+Or maybe the government needs to cut costs and choose which highways to maintain, in which case nodes are cities and towns and edges are highways.
+Or maybe you're an agent in a video game and you need to figure out how to achieve your goal, in which case each node is a specific state of your being with whatever tools and progress you may have, and each edge is a specific action you can take to change your current state and hopefully get close to achieving your goal.
+
+Because of how vaguely grapth theory is defined, we can use it to pretty much represent any system.
+
+Finite-State Machines, for example, are a common AI schema that's based on grapth theory.
+In video games, research _trees_ (and by extension, likely real-world knowledge as well) are graphs.
+And your car's pathfinding system uses key ideas from graph theory (and GPS satellites sprinked around the atmosphere) to tell you how to reach your destination.
+
+== What will we be doing?
+
+While all of the above seems great, a lot of it is out of the scope of this course.
+But we _will_ be going over five basic applications, two of which are in this lesson.
+
+=== Search
+
+You may have heard about depth-first search and breadth-first search.
+These two methods are most easily explained with graph theory.
+
+*Depth-first search* tries to search as far away from the root (as _deep_) as possible before backing up to try another path.
+This is commonly accomplished with recursion: think about representing the recursive Fibonacci function as a graph, and see how calculations flowed down it.
+
+*Breadth-first search* does the opposite: it tries to stay as closely to the root as possible.
+As a result, it first searches _widely_, around the root, across the breadth, before it goes deeper.
+These are harder to implement, but can often find solutions much faster than DFS, especially if the search tree grows exponentially.
+
+=== Other things
+
+The three other applications we'll be looking at in the next two meetings are for finding the *shortest path*, finding the *minimum spanning tree*, and solving the *travelling salesman* problemfootnote:[we'll solve the travelling salesman problem on a tree, since on a typical graph it's an NP-complete problem].
+They'll be discussed in their respective lessons.
