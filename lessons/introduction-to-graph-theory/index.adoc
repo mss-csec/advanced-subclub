@@ -7,6 +7,14 @@ draft: true
 ---
 = Introduction to Graph Theory
 
+How does your car's GPS find the fastest path to a destination?
+How does it store the data that enables it to find this path?
+
+These problems led to the creation of a new field in mathematics: graph theory.
+Data concerning locations and paths connecting those locations can be represented in a graph.
+
+== Graphs
+
 image:++https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/6n-graf.svg/333px-6n-graf.svg.png++[A graph]
 
 A *graph* is a collection of *vertices* and *edges*, or of *nodes* and *connections*.
@@ -48,6 +56,11 @@ stem:[1\rightarrow 4\rightarrow 3\rightarrow 1], and
 
 stem:[2\rightarrow 4\rightarrow 3\rightarrow 2].
 
+We can say that two nodes are *strongly connected*, or *adjacent*, if the shortest path between them is one edge long.
+In a directed graph, we say that "a node is adjacent to another node" if the edge leads from the first to the second.
+
+They can be *weakly connected*, or just *connected*, if a path exists between them.
+
 Not all graphs are *connected*, as we've seen so far.
 They can also be *disconnected*, where you have at least two *subgraphs* that constitute the larger graph but aren't connected to each other with an edge.
 
@@ -65,3 +78,18 @@ These have very interesting properties that will be explored later.
 *Forests* are collections of disconnected trees.
 
 Now that I've thrown at you all these terms you have yet to see a use for, it's time to move on to Implementations and Applications of Graph Theory.
+
+== Glossary
+
+acyclic:: a graph with no cycles
+adjacent:: two nodes which are directly connected by a single edge
+connected:: for a pair of edges stem:[(a,b)], there is a series of edges which can be traversed from stem:[a] to stem:[b]
+cycle:: a series of distinct edges that lead to a loop
+directed edges:: edges that can only be traversed (or only connects) in one direction
+edge:: something which connects two edges
+forest:: a collection of disconnect trees
+graph:: a collection of nodes and edges
+graph theory:: the study of graphs
+node:: an object on which edges can extend from
+tree:: a connected, undirected, acyclic graph
+unconnected:: not connected
