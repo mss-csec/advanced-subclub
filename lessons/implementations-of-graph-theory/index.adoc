@@ -65,5 +65,34 @@ We can also include an _ID_ field in the nodes and edges if we wanted to, which 
 
 This is harder to code, but in the end it's more sustainable than an adjacency matrix, and it'll work for edge-based optimizations.
 
+== Using the Standard Library
+
+You can also use stuff from the standard library.
+
+[source,cpp]
+----
+#include <vector>
+#include <map>
+
+
+int main()
+{
+    std::map <int, std::vector < std::pair <int, int> > > adjList;
+    for (int a = 0; a < NO_EDGES; ++a){
+        scanf ("%d%d%d", &from, &to, &weight);
+        if (adjList.count(from) == 0){
+            std::vector < std::pair <int, int> > v;
+            adjList[from] = v;
+        }
+        adjList[from].push_back(std::make_pair(to, weight));
+    }
+    for (int a = 0; a < adjList[node].size(); ++a){
+        printf ("to = %d, weight = %d\n", adjList[node][a].first, adjList[node][a].second);
+    }
+}
+----
+
+I'm not quite sure how this works to be honest, so please ask Victor if you have any questions.
+
 And now that you know how to put this stuff in code, you're probably wondering about what we're going to do with all this stuff.
 That's for the Applications of Graph Theory section.
