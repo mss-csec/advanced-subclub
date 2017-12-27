@@ -358,7 +358,7 @@ Naturally, when asked for something that requires millions of elements, this bec
 == Other
 === Hash Table
 |===
-|STL analogue|link:++http://www.cplusplus.com/reference/map/map/++[``std::map<const T,T>``]
+|STL analogue|link:++http://www.cplusplus.com/reference/unordered_map/++[``std::unordered_map<const T,T>``]
 |Associative|Keys can be of any type
 |===
 |===
