@@ -15,12 +15,13 @@ schedule:
   applications-of-graph-theory: 8 Dec 2017
   minimum-spanning-tree: 15 Dec 2017
   shortest-path: 15 Dec 2017
-  travelling-salesman: 22 Dec 2017
-  other-algorithms: 22 Dec 2017
-  '1@Review and Practice': 12 Jan 2018
-  '2@How to CCC': 9 Feb 2018
-  '2@Canadian Computing Competition': 14 Feb 2018
-  '3@Discussion of CCC': 23 Feb 2018
+  '1@Holiday Party': 22 Dec 2017
+  travelling-salesman: 12 Jan 2018
+  other-algorithms: 12 Jan 2018
+  '2@Review?': 19 Jan 2018
+  '3@Review, How to CCC': 9 Feb 2018
+  '4@Canadian Computing Competition': 14 Feb 2018
+  '5@Discussion of CCC': 23 Feb 2018
 ---
 = Advanced
 
