@@ -6,3 +6,70 @@ lesson: 12
 draft: true
 ---
 = Shortest Path
+:toc: macro
+
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Shortest_path_with_direct_weights.svg/250px-Shortest_path_with_direct_weights.svg.png++[a shortest path, role="right"]
+
+shortest path:: _n._ a subset of the edges of a connected, edge-weighted graph that connects two specific nodes together without any cycles and with the minimum possible total edge weight.
+
+toc::[]
+
+== Who cares?
+
+The answer is trivial and is left as an exercise to the readerfootnote:[pathfinding, duh].
+
+== Relaxing a Node
+
+
+
+== Dijkstra's Algorithm
+
+=== Basic Algorithm
+
+
+=== Intuition of Correctness
+
+
+=== Implementation
+
+== Bellman-Ford Algorithm
+
+=== Basic Algorithm
+
+=== Intuition of Correctness
+
+=== Implementation
+
+== Comparison
+
+|===
+||Dijkstra's Algorithm|Bellman-Ford Algorithm
+
+|Basis
+|Node-based
+|Edge-based
+
+|Time Complexity
+|\(\Theta(M\log{M})\)
+|\(\text{O}(NM)\)
+
+|Greedy?
+|Yes -- no negative weights
+|No
+
+|Data Structures
+|Heap
+|
+
+|===
+
+== Practice
+
+These are some problems that you can use for practice.
+The choice of algorithm and modifications are for you to figure out.
+
+link:++http://wcipeg.com/problem/ccc15s4++[CCC15S4: Convex Hull]
+
+link:++http://wcipeg.com/problem/ccc08s3++[CCC08S3: Maze]
+
+link:++http://wcipeg.com/problem/mockccc14s4++[MockCCC14S4: Roadtrip Tracking]
