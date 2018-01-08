@@ -18,19 +18,75 @@ toc::[]
 
 The answer is trivial and is left as an exercise to the readerfootnote:[pathfinding, duh].
 
-== Relaxing a Node
+== Relaxing an Edge
 
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Shortest_path_with_direct_weights.svg/250px-Shortest_path_with_direct_weights.svg.png++[a shortest path, role="right"]
 
+Consider the graph on the right, where we are searching for a path from node *A* to node *F*.
+
+The _true distance_ to node *A* is \(0\), as the total weight of the shortest path from *A* to *A* is \(0\).
+Similarly, the true distance to node *B* is \(4\), to node *C* is \(2\), etc.
+
+This is because the shortest path to *B* is \(A\rightarrow B\) with weight \(4\), and the shortest path the *C* is \(A\rightarrow C\) with weight \(2\); the only other path is \(A\rightarrow B\rightarrow C\) with weight \(4+5=9\).
+
+To find, then, the distance to node *D*, we must consider three paths:
+
+stem:[A\rightarrow B\rightarrow D] with weight stem:[4+10=14],
+
+stem:[A\rightarrow B\rightarrow C\rightarrow E\rightarrow D], with weight stem:[4+5+3+4=16], and
+
+stem:[A\rightarrow C\rightarrow E\rightarrow D], with weight stem:[2+3+4=9].
+
+Since the third path has least weight, the true distance from node *A* to node *D* is \(9\).
+
+Notice that we could have found this if we already knew the true distance from node *A* to nodes *B* or *E*: we could take that distance and add the weight of edges \(B\rightarrow D\) or \(E\rightarrow D\) respectively.
+
+The act of doing so is called *relaxing* an edge: finding (and updating) the true distance of some node *Y* from edge \(X\rightarrow Y\).
 
 == Dijkstra's Algorithm
 
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/DijkstraDemo.gif/220px-DijkstraDemo.gif++[dijkstra's algorithm on euclidean distance, role="right"]
+
+Developed by link:++https://en.wikipedia.org/wiki/Edsger_W._Dijkstra++[Edsger W. Dijkstra], Dijkstra's Algorithm finds the shortest path between two nodes in a nonnegative-weighted graph with \(N\) nodes and \(M\) edges in \(\Theta(N\log{M})\) time using a binary heap.
+
 === Basic Algorithm
 
+. Begin with true distance \(\infty\) for all nodes _except_ for the source, with true distance \(0\).
+. Relax all edges from the source node, which is marked _closed_; all other nodes are marked _open_.
+. Until there are no more open nodes, or until the destination node is marked closed, iterate:
+.. Pick the least true-distance open node.
+.. Relax all edges from this node.
+.. Close this node.
 
 === Intuition of Correctness
 
+This is equivalent to what would be breadth-first search if, instead of merely considering recursive depth, the true distance of a node were considered instead.
 
 === Implementation
+
+[source,cpp]
+----
+struct less_true_dist //<1>
+{
+    bool operator<(node_t a, node_t b)
+    {
+        //priority_queues are max-heaps, but we want min
+        return a.true_dist > b.true_dist;
+    }
+};
+
+int dijkstra(graph_t g, node_t source, node_t dest)
+{
+    g.set_all_true_dist(MAXINT); //<2>
+    
+    source.set_true_dist(0); //<3>
+    
+    
+}
+----
+<1> A functor for STL comparisons
+<2> Step 1.
+Usually you'd store these in an array.
 
 == Bellman-Ford Algorithm
 
