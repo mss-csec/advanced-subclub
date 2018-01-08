@@ -47,7 +47,7 @@ The act of doing so is called *relaxing* an edge: finding (and updating) the tru
 
 image:++https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/DijkstraDemo.gif/220px-DijkstraDemo.gif++[dijkstra's algorithm on euclidean distance, role="right"]
 
-Developed by link:++https://en.wikipedia.org/wiki/Edsger_W._Dijkstra++[Edsger W. Dijkstra], Dijkstra's Algorithm finds the shortest path between two nodes in a nonnegative-weighted graph with \(N\) nodes and \(M\) edges in \(\Theta(N\log{M})\) time using a binary heap.
+Developed by link:++https://en.wikipedia.org/wiki/Edsger_W._Dijkstra++[Edsger W. Dijkstra], Dijkstra's Algorithm finds the shortest path between two nodes in a nonnegative-weighted graph with \(N\) nodes and \(M\) edges in \(\Theta(M\log{M})\) time using a binary heap.
 
 === Basic Algorithm
 
@@ -61,6 +61,7 @@ Developed by link:++https://en.wikipedia.org/wiki/Edsger_W._Dijkstra++[Edsger W.
 === Intuition of Correctness
 
 This is equivalent to what would be breadth-first search if, instead of merely considering recursive depth, the true distance of a node were considered instead.
+As such, every node closed must be the next-closest open node to the source.
 
 === Implementation
 
@@ -68,18 +69,20 @@ This is equivalent to what would be breadth-first search if, instead of merely c
 ----
 struct less_true_dist //<1>
 {
-    bool operator<(node_t a, node_t b)
+    bool operator<(edge_t a, edge_t b)
     {
         //priority_queues are max-heaps, but we want min
-        return a.true_dist > b.true_dist;
+        return a.to.true_dist > b.to.true_dist;
     }
 };
 
 int dijkstra(graph_t g, node_t source, node_t dest)
 {
     g.set_all_true_dist(MAXINT); //<2>
+    g.set_all_open(); //<3>
     
-    source.set_true_dist(0); //<3>
+    source.set_true_dist(0);
+    source.close();
     
     
 }
