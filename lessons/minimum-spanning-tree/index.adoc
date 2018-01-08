@@ -6,3 +6,185 @@ lesson: 11
 draft: true
 ---
 = Minimum Spanning Tree
+:toc: macro
+
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Minimum_spanning_tree.svg/300px-Minimum_spanning_tree.svg.png++[an MST, role="right"]
+
+minimum spanning tree:: _n._ a subset of the edges of a connected, edge-weighted graph that connects all nodes together without any cycles and with the minimum possible edge weight; that is, a spanning tree with minimal total weight.
+
+toc::[]
+
+== Who cares?
+
+A minimum spanning tree is useful for *minimizing costs* when connecting nodes in a graph, such as link:++http://wcipeg.com/problem/ccc17s4++[which pipelines to keep in a sewer system during budget cuts].
+
+The idea of a _minimum_ spanning tree can be flipped on its head.
+Consider a scenario where weights denote restrictions on edges, such as link:++http://wcipeg.com/problem/ccc03s5++[the maximum weight that can be driven across a bridge].
+Then, to find the _maximum_ weight that can be driven across the network, you just need to find the *maximum* spanning tree.
+
+== Prim's Algorithm
+
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/PrimAlgDemo.gif/220px-PrimAlgDemo.gif++[prim's algorithm on euclidian distance, role="right"]
+
+First developed by Czech mathematician link:++https://en.wikipedia.org/wiki/Vojt%C4%9Bch_Jarn%C3%ADk++[Jarnik] in 1930 and later rediscovered and republished by computer scientists link:++https://en.wikipedia.org/wiki/Robert_C._Prim++[Prim] and link:++https://en.wikipedia.org/wiki/Edsger_W._Dijkstra++[Dijkstra], Prim's algorithm finds the minimum spanning tree of a graph with \(N\) nodes and \(M\) edges in \(\text{O}(N\log{M})\) time with the tools we have.
+
+=== Basic Algorithm
+
+. Begin with one nodefootnote:[any works.].
+This node is part of your minimum spanning tree.
+. Iterate until all nodes have been added:
+.. Find the lowest-weight edge that connects from a node currently in the tree to a node not yet in the tree.
+.. Add that edge and the node connected from it to the tree.
+
+=== Intuition of Correctness
+
+The link:++https://en.wikipedia.org/wiki/Prim%27s_algorithm#Proof_of_correctness++[proof] that this works can be understood by induction.
+
+. A single node from the graph must, by definition, be a part of the minimum spanning tree.
+. Adding the _least-cost_ node from the tree to the tree ensures that the two now-connected nodes are connected by the least-weight edge.
+
+=== Implementation
+
+There are a number of considerations to be had when implementing Prim's Algorithm.
+
+The following is sample pseudocode:
+
+[source,cpp]
+----
+struct less_weight //<1>
+{
+    bool operator<(edge_t a, edge_t b)
+    {
+        //priority_queues are max-heaps, but we want min
+        return a.weight > b.weight;
+    }
+};
+
+graph_t prim(graph_t g)
+{
+    graph_t mst;
+    mst.add_node(g.nodes[0]); //<2>
+    
+    std::priority_queue<edge_t, std::vector<edge_t>, less_weight) choices; //<3>
+    for (each edge_t e in g.nodes[0])
+        choices.push(e);
+    
+    while (mst.num_nodes < g.num_nodes)
+    {
+    	if (mst.contains_node(choices.top().to_node)) //<4>
+        {
+            choices.pop();
+            continue;
+        }
+        
+        mst.add_node(choices.top().to_node);
+        mst.add_edge(choices.top());
+        
+        node_t n = choices.top().to_node;
+        choices.pop();
+        
+        for (each edge_t e in n)
+            choices.push(e);
+    }
+    
+    return mst;
+}
+----
+<1> A functor for STL comparisons
+<2> Step 1: add _some_ node to your MST
+<3> To carry out step 2a, we'll keep track of _all available_ choices for the next edge to add in a binary heap.
+This contributes to the \(\log{M}\) factor in the time complexity.
+<4> We do need to consider that an edge may connect two nodes already in the MST.
+In practice, this is usually accomplished by an array of ``bool``s, the \(i\)th element denoting if the \(i\)th node is yet in the MST.
+
+== Kruskal's Algorithm
+
+image:++https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/KruskalDemo.gif/220px-KruskalDemo.gif++[kruskal's algorithm on euclidean distance, role="right"]
+
+Developed by American computer scientist link:++https://en.wikipedia.org/wiki/Joseph_Kruskal++[Kruskal], and can find the minimum spanning tree of a graph with \(N\) nodes and \(M\) edges in \(\text{O}(M\log{M})\) time, or equivalently, \(\text{O}(M\log{N})\) time.
+
+=== Basic Algorithm
+
+. Sort the \(M\) edges by weight.
+. Consider each node their own individual tree, forming an \(N\)-node, \(0\)-edge forest, and add them to the MST.
+. Iterate: take the least-weight not-yet-traversed edge.
+.. If this edge connects two nodes in separate (unconnected) trees, join the two trees together.
+
+=== Intuition of Correctness
+
+I'm tired, so this is left as an exercise for the reader.
+
+=== Implementation
+
+Pseudocode:
+[source,cpp]
+----
+struct less_weight //<1>
+{
+    bool operator<(edge_t a, edge_t b)
+    {
+        //priority_queues are max-heaps, but we want min
+        return a.weight > b.weight;
+    }
+};
+
+graph_t prim(graph_t g)
+{
+    std::deque<edge_t> all_edges = g.edges; //<1>
+    std::sort(all_edges.begin(), all_edges.end(), less_weight);
+
+    graph_t mst; //<2>
+    for (each node_t n in g.nodes)
+        mst.add_node(n);
+        
+    dijoint_set_t<g.num_nodes> connectivity; //<3>
+    
+    while (connectivity.num_sets > 1)
+    {
+    	if (connectivity.find(all_edges.front().from) !=
+            connectivity.find(all_edges.front().to))
+        {
+            connectivity.union(all_edges.front().from, all_edges.front().to);
+            mst.add_edge(all_edges.front());
+        }
+        all_edges.pop_front();
+    }
+    
+    return mst;
+}
+----
+<1> Step 1; I'm using a deque here because there's less to write later.
+<2> Step 2.
+<3> It's very useful to make a disjoint-set structure for checking if two nodes are in the same tree.
+
+== Comparison
+
+|===
+||Prim's Algorithm|Kruskal's Algorithm
+
+|Basis
+|Node-based
+|Edge-based
+
+|Time Complexity
+|\(\text{O}(N\log{M})\)
+|\(\text{O}(M\log{N})\)
+
+|Greedy?
+|Yes
+|Yes, but less so
+
+|Data Structures
+|Heap
+|Disjoint-Set
+
+|===
+
+== Practice
+
+These are some problems that you can use for practice.
+The choice of algorithm and modifications are for you to figure out.
+
+link:++http://wcipeg.com/problem/ccc03s5++[CCC03S5: Trucking Troubles]
+
+link:++http://wcipeg.com/problem/ccc17s4++[CCC17S4: Minimum Cost Flow]
