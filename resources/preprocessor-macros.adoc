@@ -5,3 +5,112 @@ draft: true
 ---
 
 = Preprocessor Macros
+
+*Preprocessor macros* are powerful tools that give direct instructions to a compiler.
+They can be very useful when debugging your code.
+
+[CAUTION]
+====
+Preprocessor macros ignore the structure of your code, and so can be dangerous if handled badly.
+If you aren't experienced with them, it's best to work only with macros that affect small segments of code.
+====
+
+This article is a compilation of a number of common macros and applications of them you may want to consider.
+
+== ``#include``
+
+Includes a header file.
+You already use this when including specific libraries from the standard library.
+
+== Replacement token ``#define``
+
+Once ``#define [TOKEN] [REPLACEMENT]`` has been invoked, *all* instances of ``TOKEN`` that appear afterword will be replaced with ``REPLACEMENT``.
+This can be undone with ``#undef [TOKEN]``.
+
+These are commonly used for magic numbers or readability:
+
+[source,cpp]
+----
+#define PI 3.14159265358979
+#define p3i std::pair<int, std::pair<int, int> >
+#define mpii std::make_pair
+
+//...
+
+    p3i p = mpii(0, mpii(1, (int)(PI*100)));
+----
+
+The above line is equivalent to:
+
+[source,cpp]
+----
+    std::pair<int, std::pair<int, int> > p = std::make_pair(0, std::make_pair(1, (int)(3.14159265358*100)));
+----
+
+== Function macro ``#define``
+
+``#define`` macros can be used to make what are similar to functions, and are also usually used for readability.
+They can also be undone with ``#undef``.
+
+[source,cpp]
+----
+#define scan(x) scanf("%d",&(x));
+
+//...
+
+    scan(n);
+    scan(m);
+----
+
+\... is equivalent to:
+
+[source,cpp]
+----
+    scanf("%d", &(n));
+    scanf("%d", &(m));
+----
+
+Always surround arguments of a macro function with brackets and never put in an expression with side effects.
+
+[source,cpp]
+----
+#define dist(x,y) sqrt(x*x+y*y)
+    return dist(x1-x2,y1-y2);
+----
+
+\... is equivalent to...
+
+[source,cpp]
+----
+    return sqrt(x1-x2*x1-x2+y1-y2*y1-y2);
+----
+
+\... when you really wanted...
+
+[source,cpp]
+----
+#define dist(x,y) sqrt((x)*(x)+(y)*(y))
+    return dist(x1-x2,y1-y2);
+----
+
+\... which is equivalent to...
+
+[source,cpp]
+----
+    return sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+----
+
+== Token definitions and ``#ifdef`` blocks
+
+This is most useful when you want to toggle sections of code at will, such as when you're switching between debug output to real output.
+
+[source,cpp]
+----
+#define DEBUG
+
+#ifdef DEBUG
+    printf("%4d %4d %4d:%04d -> %d", i, j, arr[i], arr[j], res);
+#endif
+----
+
+Commenting out the first line, ``#define DEBUG``, will prevent the ``printf`` line from being compiled.
