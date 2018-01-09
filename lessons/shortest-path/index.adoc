@@ -51,8 +51,8 @@ Developed by link:++https://en.wikipedia.org/wiki/Edsger_W._Dijkstra++[Edsger W.
 
 === Basic Algorithm
 
-. Begin with true distance \(\infty\) for all nodes _except_ for the source, with true distance \(0\).
-. Relax all edges from the source node, which is marked _closed_; all other nodes are marked _open_.
+. Begin with true distance \(\infty\) for all nodes.
+. Add the source node to the _open_ list with true distance \(0\).
 . Until there are no more open nodes, or until the destination node is marked closed, iterate:
 .. Pick the least true-distance open node.
 .. Relax all edges from this node.
@@ -79,25 +79,59 @@ struct less_true_dist //<1>
 int dijkstra(graph_t g, node_t source, node_t dest)
 {
     g.set_all_true_dist(MAXINT); //<2>
-    g.set_all_open(); //<3>
+
+    std::priority_queue<edge_t, std::vector<edge_t>, less_true_dist> open_list;
+    open_list.push(make_edge(NULL, source, 0, 0)); <3>
     
-    source.set_true_dist(0);
-    source.close();
+    while (!dest.closed() && !open_list.empty())
+    {
+    	edge_t next = open_list.top();
+        open_list.pop();
+        if (next.to.closed())
+            continue;
+        
+        next.close(); <4>
+        for (each edge_t e in next.to.edges)
+        {
+            if (!e.to.closed() && relax(e)) <5>
+            {
+            	open_list.push(e);
+            }
+        }
+    }
     
-    
+    return dest.true_dist;
 }
 ----
 <1> A functor for STL comparisons
 <2> Step 1.
 Usually you'd store these in an array.
+<3> Step 2.
+Assume that ``make_edge`` has signature ``edge_t make_edge(node_t from, node_t to, int weight, int true_dist)`` and parameters are passed by reference.
+<4> Assume that this closes the node ``next.to``, automatically updating true distance.
+<5> ``relax(edge_t e)`` updates node ``e.to`` with its true distance, if applicable, and returns ``true`` on an update; that is, a new least true distance was found.
 
 == Bellman-Ford Algorithm
 
+First proposed by Alfonso Shimbell in 1955 and later named after mathematicians Richard Bellman and Lester Ford Jr. who published it, the Bellman-Ford algorithm can find the shortest path in a graph with _negative_ weights or report the existence of a negative cycle in a graph with \(N\) nodes and \(M\) edges in \(\text{O}(NM)\) time.
+
 === Basic Algorithm
+
+. Begin with true distance \(\infty\) for all nodes _except_ the source, which starts with true distance \(0\).
+. Relax all \(M\) edges \(N\) times.
+.. If any relaxing on the \(N^{\text{th}}\) pass succeeded, a negative cycle was found.
 
 === Intuition of Correctness
 
+This is pretty much brute-force.
+
 === Implementation
+
+[source,{0}]
+----
+
+----
+
 
 == Comparison
 
