@@ -65,7 +65,7 @@ graph_t prim(graph_t g)
     graph_t mst;
     mst.add_node(g.nodes[0]); //<2>
     
-    std::priority_queue<edge_t, std::vector<edge_t>, less_weight) choices; //<3>
+    std::priority_queue<edge_t, std::vector<edge_t>, less_weight> choices; //<3>
     for (each edge_t e in g.nodes[0])
         choices.push(e);
     
