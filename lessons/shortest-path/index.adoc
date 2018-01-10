@@ -129,9 +129,35 @@ This is pretty much brute-force.
 
 [source,{0}]
 ----
-
+int bellman_ford(graph_t g, node_t source, node_t dest)
+{
+    g.set_all_true_dist(MAX_INT); <1>
+    source.set_true_dist(0);
+    
+    bool successful_relax = false;
+    for (int n = 0; n < g.num_nodes; ++n)
+    {
+        successful_relax = false; <2>
+        for (each edge_t e in g.edges)
+        {
+            successful_relax = successful_relax | relax(e); <3>
+        }
+        if (!successful_relax)
+            break;
+    }
+    
+    if (successful_relax) <4>
+        return -1;
+        
+    return dest.true_dist;
+}
 ----
-
+<1> Step 1.
+<2> This is to track if any relaxing was successful; if there wasn't, there's no need to continue.
+<3> This is a quick hack for something that's equivalent to ``if(relax(e)) relax = true;`` in less statements.
+The single-bar isn't an error: a double-bar would *short circuit* if ``successful_relax`` were already true, skipping the actual relaxing.
+<4> If the last iteration contained a successful relax, then there's a negative cycle, in which case we return an error code.
+In this case, it's ``-1``.
 
 == Comparison
 
@@ -152,7 +178,7 @@ This is pretty much brute-force.
 
 |Data Structures
 |Heap
-|
+|No
 
 |===
 
@@ -160,6 +186,10 @@ This is pretty much brute-force.
 
 These are some problems that you can use for practice.
 The choice of algorithm and modifications are for you to figure out.
+
+link:++http://wcipeg.com/problem/graph3p2++[GRAPH3P2: Shortest Path]
+
+link:++http://wcipeg.com/problem/pipe++[PIPE: Pipe Dream]
 
 link:++http://wcipeg.com/problem/ccc15s4++[CCC15S4: Convex Hull]
 
