@@ -3,16 +3,15 @@ liquid: true
 layout: lesson
 category: advanced
 lesson: 13
-draft: true
 ---
 = Travelling Salesman
 
-travelling salesman problem::given a connected graph _G_, find the shortest path that starts at any node, visits all nodes, and returns to the inital node.
+travelling salesman problem:: given a connected graph _G_, find the shortest path that starts at any node, visits all nodes, and returns to the inital node.
 
 == TSP in a Cyclic Graph
 
 The Travelling Salesman Problem is famous for being a simple link:++https://en.wikipedia.org/wiki/NP-hardness++[NP-Hard] problem.
-One of the most widely-known algorithms for solving TSP is the link:++https://en.wikipedia.org/wiki/Held%E2%80%93Karp_algorithm++[Held-Karp algorithm], which runs in \(\text{O}n^22^n)\) for \(n\), the number of nodes in the graph.
+One of the most widely-known algorithms for solving TSP is the link:++https://en.wikipedia.org/wiki/Held%E2%80%93Karp_algorithm++[Held-Karp algorithm], which runs in \(\text{O}(n^2 2^n)\) for \(n\), the number of nodes in the graph.
 
 This problem will never show up on the CCC.
 
