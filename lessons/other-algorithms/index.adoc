@@ -6,3 +6,19 @@ lesson: 14
 draft: true
 ---
 = Other Algorithms
+
+This lesson is intended to be a reference for other algorithms and techniques not otherwise covered.
+
+== Square-root Decomposition
+
+Suppose you have a large array of \(n\) elements.
+You need to make \(q\) queries on this array, each requesting either a change in one element of the array or to return a range sum.
+
+Brute-force gives time complexity \(\text{O}(nq)\)footnote:[worst case: every query asks for a range sum of the entire array].
+Using another array with precomputed sums also gives \(\text{O}(nq)\)footnote:[worst case: every query asks to change the first element].
+
+Instead, we can create another array of \(\sqrt{n}\) elements, each which contains the sums of elements \(\mathopen[i\sqrt{n}, (i+1)\sqrt{n}\mathclose)\) in the original array for \(i\), the index of the new array.
+
+In this manner, we can reduce changing an element to \(\Theta(1)\)footnote:[exactly two changes] and requesting a range sum to \(\text{O}(\sqrt{n})\)footnote:[\(\text{O}(\sqrt{n})\) individual elements to sum and \(\text{O}(\sqrt{n})\) chunks to sum].
+
+And so, we can reduce the entire problem to \(\text{O}(q\sqrt{n})\).
